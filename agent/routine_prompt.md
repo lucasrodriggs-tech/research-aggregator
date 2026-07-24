@@ -1,22 +1,33 @@
-# Daily research digest — agent instructions (LEGACY — local/laptop version)
+# Daily research digest — cloud routine instructions
 
-> **Deprecated as of 2026-07-24.** This was the original version of the
-> daily job, designed for the local, laptop-dependent `scheduled-tasks`
-> mechanism (Claude Code Desktop must be open). It's superseded by
-> `agent/routine_prompt.md`, which runs on a Claude cloud Routine
-> independent of any local machine and publishes to GitHub Pages instead of
-> a Claude Artifact. Kept here for reference; the local scheduled task this
-> drove is being disabled in favor of the cloud routine.
+You are running as a scheduled Claude Routine in a cloud sandbox environment
+(not Lucas's laptop). You have no memory of any other session. Follow these
+steps exactly, in order.
 
-You are running as a scheduled daily task. You have no memory of any other
-session. Follow these steps exactly, in order.
+## 1. Get the repo
 
-## 1. Sync the repo
+Check whether the repo is already present and up to date; otherwise clone it
+fresh. Run this from your working directory:
 
-The repo lives at `C:\Users\Lucas\Desktop\claude code\research-aggregator`.
+    if [ -d "research-aggregator/.git" ]; then
+      cd research-aggregator && git pull
+    elif [ -f ".git/config" ] && git remote -v | grep -q "research-aggregator"; then
+      git pull
+    else
+      git clone https://github.com/lucasrodriggs-tech/research-aggregator.git
+      cd research-aggregator
+    fi
 
-    cd "C:\Users\Lucas\Desktop\claude code\research-aggregator"
-    git pull
+Confirm you end up with your working directory at the repo root (a `data/`,
+`scripts/`, `docs/`, `agent/` layout) before continuing. If `git pull` or
+`git clone` fails, stop and report BLOCKED with the exact error -- do not
+proceed on stale or missing code.
+
+Set a git identity for commits in this environment (needed before any
+commit will succeed here):
+
+    git config user.name "Research Digest Bot"
+    git config user.email "research-digest-bot@users.noreply.github.com"
 
 ## 2. Load existing state
 
@@ -85,17 +96,20 @@ or edit any existing entries).
 
 ## 5. Self-check before committing
 
+This environment does not have a pre-built Python virtualenv -- the scripts
+only use the Python standard library, so plain `python3` works with no setup.
+
 Run:
 
-    .venv\Scripts\python -m scripts.validate_papers data\papers.json
+    python3 -m scripts.validate_papers data/papers.json
 
 If it prints any errors (exit code 1), fix the offending entries in
 `data/papers.json` and re-run until it prints `OK: <N> papers valid`.
 
-Also run this quick quota check in Python and confirm the four required
-categories each have at least 1 paper with today's `date_surfaced`:
+Also run this quick quota check and confirm the four required categories
+each have at least 1 paper with today's `date_surfaced`:
 
-    .venv\Scripts\python -c "
+    python3 -c "
     import json
     from scripts.site_data import category_counts
     papers = json.load(open('data/papers.json', encoding='utf-8'))
@@ -113,24 +127,31 @@ categories each have at least 1 paper with today's `date_surfaced`:
 If `total today` is not 10, or `missing required categories` is non-empty,
 fix `data/papers.json` and re-run both checks before continuing.
 
-## 6. Commit and push
+## 6. Rebuild the site
 
-    git add data/papers.json
+    python3 -m scripts.build_site
+
+This writes `docs/index.html`. Unlike the site's earlier version, this
+environment has no Artifact-publishing tool -- the site is hosted on GitHub
+Pages instead, which serves directly from `docs/index.html` in this repo.
+There is no separate "publish" step: committing and pushing the file (next
+step) is what makes it live.
+
+## 7. Commit and push
+
+    git add data/papers.json docs/index.html
     git commit -m "Add daily digest for <today's ISO date>"
     git push
 
-## 7. Rebuild and republish the site
-
-    .venv\Scripts\python -m scripts.build_site
-
-Then call the `Artifact` tool with `file_path` set to
-`site/dist/index.html` (the exact same path used for every previous
-publish -- check `README.md`'s "Live site" section for the URL this should
-match) so the update lands on the existing URL rather than creating a new
-one. Reuse `title: "Research Digest"` and `favicon: "🧬"` exactly as before.
+If the push fails due to authentication, stop and report BLOCKED with the
+exact error -- do not attempt workarounds like force-pushing or changing
+remotes.
 
 ## 8. Done
 
 No further action needed. Do not modify `site/artifact_template.html`,
-`scripts/*.py`, or anything outside `data/papers.json` during a normal daily
-run.
+`scripts/*.py`, or anything outside `data/papers.json` and `docs/index.html`
+during a normal daily run. The live site is
+https://lucasrodriggs-tech.github.io/research-aggregator/ -- it updates
+automatically within a few minutes of a successful push, no manual publish
+step required.
