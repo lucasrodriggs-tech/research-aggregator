@@ -260,13 +260,22 @@
 
     var head = document.createElement('div');
     head.className = 'card-head';
-    head.addEventListener('click', function () {
+    head.setAttribute('tabindex', '0');
+    head.setAttribute('role', 'button');
+    function toggleExpanded() {
       if (state.expanded[paper.id]) {
         delete state.expanded[paper.id];
       } else {
         state.expanded[paper.id] = true;
       }
       card.classList.toggle('expanded');
+    }
+    head.addEventListener('click', toggleExpanded);
+    head.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        toggleExpanded();
+      }
     });
 
     var main = document.createElement('div');
@@ -278,10 +287,16 @@
 
     var meta = document.createElement('div');
     meta.className = 'meta';
-    meta.innerHTML =
-      '<span class="tag">' + (CATEGORY_LABELS[paper.category] || paper.category) + '</span>' +
-      '<span>' + paper.journal + ' &middot; ' + paper.year + '</span>' +
-      '<span>' + paper.citation_count.toLocaleString() + ' cites</span>';
+    var categorySpan = document.createElement('span');
+    categorySpan.className = 'tag';
+    categorySpan.textContent = CATEGORY_LABELS[paper.category] || paper.category;
+    var journalSpan = document.createElement('span');
+    journalSpan.textContent = paper.journal + ' · ' + paper.year;
+    var citesSpan = document.createElement('span');
+    citesSpan.textContent = paper.citation_count.toLocaleString() + ' cites';
+    meta.appendChild(categorySpan);
+    meta.appendChild(journalSpan);
+    meta.appendChild(citesSpan);
     main.appendChild(meta);
 
     var summary = document.createElement('p');
