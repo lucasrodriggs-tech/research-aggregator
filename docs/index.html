@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Digest</title>
+<style>
+  :root {
+    --bg: #f1f3f0;
+    --surface: #ffffff;
+    --ink: #16211d;
+    --ink-muted: #5c6b66;
+    --line: #d3d9d5;
+    --accent: #0d7a72;
+    --accent-ink: #ffffff;
+    --warn: #b5762a;
+    --critical: #a63d34;
+    --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'URW Palladio L', Georgia, serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101613; --surface: #182019; --ink: #e6ece8; --ink-muted: #8fa39c;
+      --line: #28332e; --accent: #3fd9c7; --accent-ink: #0a1512; --warn: #d99a4e; --critical: #d9695d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101613; --surface: #182019; --ink: #e6ece8; --ink-muted: #8fa39c;
+    --line: #28332e; --accent: #3fd9c7; --accent-ink: #0a1512; --warn: #d99a4e; --critical: #d9695d;
+  }
+  :root[data-theme="light"] {
+    --bg: #f1f3f0; --surface: #ffffff; --ink: #16211d; --ink-muted: #5c6b66;
+    --line: #d3d9d5; --accent: #0d7a72; --accent-ink: #ffffff; --warn: #b5762a; --critical: #a63d34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 20px 96px; }
+  header.masthead { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 20px; }
+  header.masthead h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.9rem;
+    margin: 0 0 4px;
+    text-wrap: balance;
+  }
+  header.masthead .date-line {
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+  }
+  nav.tabs { display: flex; gap: 4px; margin: 20px 0 12px; }
+  nav.tabs button {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+    padding: 6px 14px;
+    cursor: pointer;
+  }
+  nav.tabs button[aria-selected="true"] {
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  nav.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .chip {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+    background: none;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .archive-date {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 28px 0 8px;
+  }
+  .card { border-top: 1px solid var(--line); padding: 18px 0; }
+  .card-head { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+  .card-head-main { flex: 1; }
+  .card h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+  .card .meta {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .card .meta .tag { text-transform: uppercase; letter-spacing: 0.03em; }
+  .card p.summary { margin: 0; max-width: 62ch; }
+  .card .actions { display: flex; gap: 8px; margin-top: 10px; }
+  .card .actions button {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .card .actions button.active-used { border-color: var(--accent); color: var(--accent); }
+  .card .actions button.active-skip { border-color: var(--critical); color: var(--critical); }
+  .card .actions button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .card.marked-skip { opacity: 0.55; }
+  .detail { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 0.85rem; }
+  .card.expanded .detail { display: block; }
+  .detail dt { color: var(--ink-muted); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.04em; margin-top: 10px; }
+  .detail dt:first-child { margin-top: 0; }
+  .detail dd { margin: 2px 0 0; }
+  .detail ol { margin: 4px 0 0; padding-left: 20px; }
+  .detail a { color: var(--accent); }
+  .empty-state { padding: 48px 0; text-align: center; color: var(--ink-muted); font-family: var(--font-display); font-size: 1.1rem; }
+  a.outlink { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+  a.outlink:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <h1>Research Digest</h1>
+    <div class="date-line" id="date-line"></div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button type="button" id="tab-today" role="tab" aria-selected="true">Today</button>
+    <button type="button" id="tab-archive" role="tab" aria-selected="false">Archive</button>
+  </nav>
+
+  <div class="chips" id="chips"></div>
+
+  <main id="feed"></main>
+</div>
+
+<script id="papers-data" type="application/json">[{"id": "lancet-2026-cure-trial-spina-bifida", "title": "Feasibility and safety of cellular therapy for in-utero repair of myelomeningocele (CuRe Trial): a first-in-human, phase 1, single-arm study", "link": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(25)02466-3/fulltext", "summary": "Surgeons at UC Davis applied allogeneic human placenta-derived mesenchymal stem cells directly onto the exposed spinal cord during standard fetal surgery for six fetuses with severe spina bifida (myelomeningocele). All six children were born with intact repairs, no cell-related adverse effects, and reversal of the hindbrain herniation typically associated with the condition. It is the first time a live cellular therapy has been delivered in utero, and the results support advancing to a larger phase 1/2a cohort.", "journal": "The Lancet", "year": 2026, "category": "cell_therapy", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and thelancet.com: no retractions, corrections, or PubPeer threads found as of 2026-07-24.", "citation_count": 5, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": []}, {"id": "cellstemcell-2026-laromestrocel-frailty", "title": "Randomized phase 2b dose-escalation trial of stem cell therapy with laromestrocel for aging frailty", "link": "https://www.cell.com/cell-stem-cell/fulltext/S1934-5909(26)00040-8", "summary": "In a 148-person randomized trial, a single IV infusion of allogeneic bone-marrow-derived mesenchymal stem cells (laromestrocel) produced dose- and time-dependent gains in 6-minute-walk distance versus placebo in adults aged 70-85 with clinical frailty, with the largest doses adding roughly 63 meters at 9 months. It is among the largest controlled trials to date testing an off-the-shelf allogeneic cell therapy against a hallmark of biological aging rather than a single disease.", "journal": "Cell Stem Cell", "year": 2026, "category": "cell_therapy", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and cell.com: no retractions or corrections found as of 2026-07-24. Note: the independent commentary site 'The Niche' (Paul Knoepfler, March 2026) raised methodological questions about an unexplained decline in the placebo group's walk-test scores between months 3 and 9, and criticized overselling in accompanying press coverage -- this is post-publication commentary, not a peer-reviewed correction.", "citation_count": 5, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": []}, {"id": "nejm-2026-biovat-hf-heart-patch", "title": "Stem-Cell-Derived Biologic Ventricular Assist Tissue in Heart Failure", "link": "https://www.nejm.org/doi/full/10.1056/NEJMoa2513525", "summary": "In the ongoing BioVAT-HF trial, 20 patients with advanced heart failure received an implanted patch of induced-pluripotent-stem-cell-derived engineered heart muscle sewn onto the epicardium. At 3 months the grafts thickened the treated heart wall by 4.5 mm and improved ejection fraction and quality-of-life scores, with benefits partly sustained out to 36 months in long-term follow-up. It is one of the first controlled trials showing an iPSC-derived tissue graft can measurably remuscularize a failing human heart.", "journal": "New England Journal of Medicine", "year": 2026, "category": "regenerative_medicine", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and nejm.org: no retractions or corrections found as of 2026-07-24.", "citation_count": 1, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": []}, {"id": "nejm-2026-daraxonrasib-pancreatic-cancer", "title": "Daraxonrasib or Chemotherapy in Previously Treated Metastatic Pancreatic Cancer", "link": "https://www.nejm.org/doi/full/10.1056/NEJMoa2605555", "summary": "The phase 3 RASolute 302 trial randomized patients with previously treated metastatic pancreatic ductal adenocarcinoma to daraxonrasib, an oral pan-RAS(ON) inhibitor, or standard chemotherapy. Daraxonrasib nearly doubled median overall survival (13.2 vs 6.7 months, hazard ratio 0.40) along with improved progression-free survival, a magnitude of benefit described by investigators as unprecedented for this cancer. Dermatologic toxicity and emerging resistance via KRAS amplification and other pathway alterations remain open challenges.", "journal": "New England Journal of Medicine", "year": 2026, "category": "clinical_trial", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and nejm.org: no retractions or corrections found as of 2026-07-24.", "citation_count": 8, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": []}, {"id": "nature-2025-brain-wide-map-decision-making", "title": "A brain-wide map of neural activity during complex behaviour", "link": "https://www.nature.com/articles/s41586-025-09235-0", "summary": "The International Brain Laboratory, a 12-lab consortium, recorded from more than 600,000 neurons across 279 brain regions in 139 mice performing a decision-making task, producing the first standardized, brain-wide activity atlas of its kind. Task-related and movement-related signals were found to be far more broadly distributed across the brain than prior single-region studies suggested. The underlying dataset and pipeline are openly released, and the finding has already reshaped how the field designs region-specific versus brain-wide circuit studies.", "journal": "Nature", "year": 2025, "category": "neuroscience", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and nature.com: no retractions or corrections found as of 2026-07-24.", "citation_count": 166, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": []}, {"id": "nature-2026-evo2-genome-model", "title": "Genome modelling and design across all domains of life with Evo 2", "link": "https://www.nature.com/articles/s41586-026-10176-5", "summary": "Evo 2 is a 40-billion-parameter DNA foundation model trained on over 9 trillion nucleotides spanning all domains of life, capable of predicting variant effects and generating synthetic genomic sequences from DNA to RNA to protein. Arc Institute and collaborators showed it can classify pathogenic mutations zero-shot and design functional genetic elements without task-specific fine-tuning. It has become one of the most widely used open genomic foundation models since its 2025 preprint release, though independent benchmarks have since identified specific blind spots.", "journal": "Nature", "year": 2026, "category": "ai_biology", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and nature.com: no retractions or corrections found as of 2026-07-24.", "citation_count": 110, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": [{"title": "Fundamental limitations of genomic language models for realistic sequence generation", "link": "https://www.biorxiv.org/content/10.64898/2026.01.17.700093.full.pdf"}, {"title": "Benchmarking DNA Foundation Models: Biological Blind Spots in Genomic Language Models", "link": "https://www.biorxiv.org/content/10.64898/2026.03.10.710786v1.full.pdf"}]}, {"id": "natneuro-2026-braingate-typing-neuroprosthesis", "title": "Restoring rapid natural bimanual typing with a neuroprosthesis after paralysis", "link": "https://www.nature.com/articles/s41593-026-02218-y", "summary": "BrainGate investigators built an intracortical brain-computer interface that decodes attempted finger movements on a QWERTY layout, letting two participants -- one with ALS, one with a cervical spinal cord injury -- type at up to 22 words per minute with a 1.6% word error rate, approaching able-bodied typing accuracy. This is a substantial throughput jump over prior hand-motor intracortical BCI decoders and moves implanted typing interfaces closer to practical, everyday communication for people with paralysis.", "journal": "Nature Neuroscience", "year": 2026, "category": "biomedical_devices", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and nature.com: no retractions or corrections found as of 2026-07-24.", "citation_count": 6, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": []}, {"id": "nejm-2025-cps1-gene-editing-baby-kj", "title": "Patient-Specific In Vivo Gene Editing to Treat a Rare Genetic Disease", "link": "https://www.nejm.org/doi/full/10.1056/NEJMoa2504747", "summary": "A CHOP/Penn team designed, manufactured, and administered a bespoke in vivo CRISPR base-editing therapy for an infant (\"KJ\") with life-threatening carbamoyl phosphate synthetase 1 (CPS1) deficiency in under six months, using lipid nanoparticles to deliver a base editor targeted to his specific mutation. After two infusions the child tolerated substantially more dietary protein and a lower dose of nitrogen-scavenger medication with no serious adverse events. It is the first published case of a fully individualized, patient-specific gene-editing drug, though it is a single-patient case study and experts have flagged open questions about manufacturing scalability and regulatory pathways for replicating the approach.", "journal": "New England Journal of Medicine", "year": 2025, "category": "gene_therapy", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and nejm.org: no retractions or corrections found as of 2026-07-24.", "citation_count": 197, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": []}, {"id": "cellstemcell-2025-vid-scaffolds-midbrain-organoids", "title": "Vascular network-inspired diffusible scaffolds for engineering functional midbrain organoids", "link": "https://www.cell.com/cell-stem-cell/fulltext/S1934-5909(25)00049-9", "summary": "Standard neural organoids suffer necrotic, hypoxic cores because nutrients and oxygen can only diffuse in from the surface. This group 3D-printed vascular-network-inspired diffusible (VID) scaffolds -- meshed tubular channel networks -- into culture wells, letting midbrain organoids grow with far less necrosis and hypoxia, along with better dopaminergic neuron maturation, more complex network activity, and more physiologically realistic drug responses. It's a low-tech, broadly adoptable alternative to microfluidic or vascularized-implant approaches for solving organoid diffusion limits.", "journal": "Cell Stem Cell", "year": 2025, "category": "tissue_engineering", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and cell.com: no retractions or corrections found as of 2026-07-24.", "citation_count": 38, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": []}, {"id": "cell-2026-tscm-car-t-cells", "title": "Distinct in vivo dynamics of donor-derived stem cell memory CAR T cells post-allogeneic HSCT relapse", "link": "https://www.cell.com/cell/fulltext/S0092-8674(26)00383-1", "summary": "Researchers co-led by Luca Gattinoni and James Kochenderfer engineered CAR T cells that acquire a stem-cell-memory (TSCM) phenotype and tested them in a first-in-human trial in patients relapsing after allogeneic stem cell transplant. The TSCM-phenotype CAR T cells expanded and persisted markedly better than conventional CAR T products, driving complete responses at doses as low as 250,000 cells/kg without lymphodepleting chemotherapy beforehand. Lower effective doses and no chemo preconditioning could translate into a substantially safer, less toxic CAR-T regimen if the results hold up in larger cohorts.", "journal": "Cell", "year": 2026, "category": "cell_therapy", "date_surfaced": "2026-07-24", "retraction_status": "Checked Retraction Watch, PubPeer, and cell.com: no retractions or corrections found as of 2026-07-24.", "citation_count": 5, "citation_source": "Semantic Scholar", "citation_checked_date": "2026-07-24", "contradicting_papers": []}]</script>
+<script>
+(function () {
+  var ALL_PAPERS = JSON.parse(document.getElementById('papers-data').textContent);
+
+  var CATEGORY_LABELS = {
+    cell_therapy: 'Cell Therapy',
+    regenerative_medicine: 'Regenerative Medicine',
+    clinical_trial: 'Clinical Trial',
+    neuroscience: 'Neuroscience',
+    ai_biology: 'AI + Biology',
+    biomedical_devices: 'Biomedical Devices',
+    tissue_engineering: 'Tissue Engineering',
+    gene_therapy: 'Gene Therapy'
+  };
+
+  var MARKS_KEY = 'research-digest-marks-v1';
+  var state = {
+    tab: 'today',
+    category: null,
+    marks: loadMarks(),
+    expanded: {}
+  };
+
+  function loadMarks() {
+    try {
+      return JSON.parse(window.localStorage.getItem(MARKS_KEY)) || {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveMarks() {
+    window.localStorage.setItem(MARKS_KEY, JSON.stringify(state.marks));
+  }
+
+  function latestDate(papers) {
+    var dates = papers.map(function (p) { return p.date_surfaced; });
+    if (dates.length === 0) return null;
+    return dates.reduce(function (a, b) { return a > b ? a : b; });
+  }
+
+  function groupByDate(papers) {
+    var groups = {};
+    papers.forEach(function (p) {
+      (groups[p.date_surfaced] = groups[p.date_surfaced] || []).push(p);
+    });
+    return groups;
+  }
+
+  function renderChips() {
+    var chipsEl = document.getElementById('chips');
+    chipsEl.innerHTML = '';
+    var allBtn = makeChip('All', state.category === null, function () {
+      state.category = null;
+      render();
+    });
+    chipsEl.appendChild(allBtn);
+    Object.keys(CATEGORY_LABELS).forEach(function (slug) {
+      var btn = makeChip(CATEGORY_LABELS[slug], state.category === slug, function () {
+        state.category = state.category === slug ? null : slug;
+        render();
+      });
+      chipsEl.appendChild(btn);
+    });
+  }
+
+  function makeChip(label, pressed, onClick) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip';
+    btn.textContent = label;
+    btn.setAttribute('aria-pressed', String(pressed));
+    btn.addEventListener('click', onClick);
+    return btn;
+  }
+
+  function markLabel(paperId) {
+    return state.marks[paperId];
+  }
+
+  function setMark(paperId, value) {
+    if (state.marks[paperId] === value) {
+      delete state.marks[paperId];
+    } else {
+      state.marks[paperId] = value;
+    }
+    saveMarks();
+    render();
+  }
+
+  function renderCard(paper) {
+    var card = document.createElement('article');
+    card.className = 'card';
+    var mark = markLabel(paper.id);
+    if (mark === 'skip') card.classList.add('marked-skip');
+    if (state.expanded[paper.id]) card.classList.add('expanded');
+
+    var head = document.createElement('div');
+    head.className = 'card-head';
+    head.setAttribute('tabindex', '0');
+    head.setAttribute('role', 'button');
+    function toggleExpanded() {
+      if (state.expanded[paper.id]) {
+        delete state.expanded[paper.id];
+      } else {
+        state.expanded[paper.id] = true;
+      }
+      card.classList.toggle('expanded');
+    }
+    head.addEventListener('click', toggleExpanded);
+    head.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        toggleExpanded();
+      }
+    });
+
+    var main = document.createElement('div');
+    main.className = 'card-head-main';
+
+    var h2 = document.createElement('h2');
+    h2.textContent = paper.title;
+    main.appendChild(h2);
+
+    var meta = document.createElement('div');
+    meta.className = 'meta';
+    var categorySpan = document.createElement('span');
+    categorySpan.className = 'tag';
+    categorySpan.textContent = CATEGORY_LABELS[paper.category] || paper.category;
+    var journalSpan = document.createElement('span');
+    journalSpan.textContent = paper.journal + ' · ' + paper.year;
+    var citesSpan = document.createElement('span');
+    citesSpan.textContent = paper.citation_count.toLocaleString() + ' cites';
+    meta.appendChild(categorySpan);
+    meta.appendChild(journalSpan);
+    meta.appendChild(citesSpan);
+    main.appendChild(meta);
+
+    var summary = document.createElement('p');
+    summary.className = 'summary';
+    summary.textContent = paper.summary;
+    main.appendChild(summary);
+
+    var actions = document.createElement('div');
+    actions.className = 'actions';
+    var usedBtn = document.createElement('button');
+    usedBtn.type = 'button';
+    usedBtn.textContent = 'Used for video';
+    if (mark === 'used') usedBtn.classList.add('active-used');
+    usedBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setMark(paper.id, 'used');
+    });
+    var skipBtn = document.createElement('button');
+    skipBtn.type = 'button';
+    skipBtn.textContent = 'Not interested';
+    if (mark === 'skip') skipBtn.classList.add('active-skip');
+    skipBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setMark(paper.id, 'skip');
+    });
+    actions.appendChild(usedBtn);
+    actions.appendChild(skipBtn);
+    main.appendChild(actions);
+
+    head.appendChild(main);
+    card.appendChild(head);
+
+    var detail = document.createElement('dl');
+    detail.className = 'detail';
+
+    var linkDt = document.createElement('dt');
+    linkDt.textContent = 'Link';
+    var linkDd = document.createElement('dd');
+    var a = document.createElement('a');
+    a.href = paper.link;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.className = 'outlink';
+    a.textContent = paper.link;
+    a.addEventListener('click', function (e) { e.stopPropagation(); });
+    linkDd.appendChild(a);
+
+    var retractionDt = document.createElement('dt');
+    retractionDt.textContent = 'Retraction / correction status';
+    var retractionDd = document.createElement('dd');
+    retractionDd.textContent = paper.retraction_status;
+
+    var citationDt = document.createElement('dt');
+    citationDt.textContent = 'Citation count';
+    var citationDd = document.createElement('dd');
+    citationDd.textContent = paper.citation_count.toLocaleString() + ' (' + paper.citation_source + ', checked ' + paper.citation_checked_date + ')';
+
+    detail.appendChild(linkDt);
+    detail.appendChild(linkDd);
+    detail.appendChild(retractionDt);
+    detail.appendChild(retractionDd);
+    detail.appendChild(citationDt);
+    detail.appendChild(citationDd);
+
+    var contraDt = document.createElement('dt');
+    contraDt.textContent = 'Contradicting papers';
+    detail.appendChild(contraDt);
+    var contraDd = document.createElement('dd');
+    if (paper.contradicting_papers.length === 0) {
+      contraDd.textContent = 'None found';
+    } else {
+      var ol = document.createElement('ol');
+      paper.contradicting_papers.forEach(function (cp) {
+        var li = document.createElement('li');
+        var cpA = document.createElement('a');
+        cpA.href = cp.link;
+        cpA.target = '_blank';
+        cpA.rel = 'noopener noreferrer';
+        cpA.className = 'outlink';
+        cpA.textContent = cp.title;
+        cpA.addEventListener('click', function (e) { e.stopPropagation(); });
+        li.appendChild(cpA);
+        ol.appendChild(li);
+      });
+      contraDd.appendChild(ol);
+    }
+    detail.appendChild(contraDd);
+
+    card.appendChild(detail);
+    return card;
+  }
+
+  function currentPapers() {
+    var latest = latestDate(ALL_PAPERS);
+    var groups = groupByDate(ALL_PAPERS);
+    var papers;
+    if (state.tab === 'today') {
+      papers = latest ? (groups[latest] || []) : [];
+    } else {
+      papers = ALL_PAPERS.filter(function (p) { return p.date_surfaced !== latest; });
+    }
+    if (state.category) {
+      papers = papers.filter(function (p) { return p.category === state.category; });
+    }
+    return { papers: papers, latest: latest };
+  }
+
+  function render() {
+    document.getElementById('tab-today').setAttribute('aria-selected', String(state.tab === 'today'));
+    document.getElementById('tab-archive').setAttribute('aria-selected', String(state.tab === 'archive'));
+    renderChips();
+
+    var feed = document.getElementById('feed');
+    feed.innerHTML = '';
+
+    if (ALL_PAPERS.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.textContent = 'No digest yet -- check back once the first daily run completes.';
+      feed.appendChild(empty);
+      document.getElementById('date-line').textContent = '';
+      return;
+    }
+
+    var result = currentPapers();
+    document.getElementById('date-line').textContent = result.latest ? 'Latest digest: ' + result.latest : '';
+
+    if (state.tab === 'today') {
+      result.papers.forEach(function (p) { feed.appendChild(renderCard(p)); });
+    } else {
+      var groups = groupByDate(result.papers);
+      Object.keys(groups).sort().reverse().forEach(function (date) {
+        var heading = document.createElement('div');
+        heading.className = 'archive-date';
+        heading.textContent = date;
+        feed.appendChild(heading);
+        groups[date].forEach(function (p) { feed.appendChild(renderCard(p)); });
+      });
+    }
+
+    if (result.papers.length === 0) {
+      var noResults = document.createElement('div');
+      noResults.className = 'empty-state';
+      noResults.textContent = 'No papers match this filter.';
+      feed.appendChild(noResults);
+    }
+  }
+
+  document.getElementById('tab-today').addEventListener('click', function () {
+    state.tab = 'today';
+    render();
+  });
+  document.getElementById('tab-archive').addEventListener('click', function () {
+    state.tab = 'archive';
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

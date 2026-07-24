@@ -8,7 +8,7 @@ from validate_papers import validate_papers  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "data" / "papers.json"
 TEMPLATE_PATH = ROOT / "site" / "artifact_template.html"
-OUTPUT_PATH = ROOT / "site" / "dist" / "index.html"
+OUTPUT_PATH = ROOT / "docs" / "index.html"
 PLACEHOLDER = "__PAPERS_DATA__"
 
 
