@@ -180,7 +180,8 @@
   var state = {
     tab: 'today',
     category: null,
-    marks: loadMarks()
+    marks: loadMarks(),
+    expanded: {}
   };
 
   function loadMarks() {
@@ -255,10 +256,16 @@
     card.className = 'card';
     var mark = markLabel(paper.id);
     if (mark === 'skip') card.classList.add('marked-skip');
+    if (state.expanded[paper.id]) card.classList.add('expanded');
 
     var head = document.createElement('div');
     head.className = 'card-head';
     head.addEventListener('click', function () {
+      if (state.expanded[paper.id]) {
+        delete state.expanded[paper.id];
+      } else {
+        state.expanded[paper.id] = true;
+      }
       card.classList.toggle('expanded');
     });
 
