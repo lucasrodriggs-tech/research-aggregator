@@ -49,7 +49,7 @@ Three pieces, tied together by one GitHub repo (Lucas has an existing GitHub acc
    - **Today view** (default): today's 10 cards. Click a card to expand full detail in place (retraction status, citation count + source/date, contradicting papers) — an accordion, not a separate page.
    - **Archive tab:** browse/search past days' picks.
    - **Category filter chips** above the feed (Neuro / Cell Therapy / Regen Med / Clinical Trial / etc.), since papers are already tagged by category for the quota system, so filtering is cheap to add. (Default choice — Lucas didn't get to confirm/reject this explicitly; easy to remove later if it clutters the "calm magazine" feel.)
-   - **Mark buttons** (used / not interested) per card, writing directly to `data/marks.json` in the GitHub repo via a GitHub connector using the Artifact `mcp` capability — the page calls the connector with Lucas's own claude.ai-side credentials; no server-side code needed.
+   - **Mark buttons** (used / not interested) per card. **v1: browser localStorage** — instant, zero setup, but scoped to one browser/device and invisible to the scheduled agent. **Planned fast-follow:** once a GitHub connector is confirmed callable from a Claude session (see Known dependencies), swap the write target to `data/marks.json` in the GitHub repo via the Artifact `mcp` capability, so marks sync across devices and could eventually inform the agent's own logic.
 
 ## Data flow
 
@@ -63,19 +63,19 @@ Scheduled agent (daily)
 
 Lucas's browser (any time, independent of the agent)
   → click "mark" on a card
-  → GitHub connector (mcp capability) writes to data/marks.json
-  → page reflects the mark on next load
+  → v1: written to localStorage in that browser
+  → (fast-follow: GitHub connector via mcp capability writes to data/marks.json instead)
 ```
 
 ## Known dependencies / open items before implementation can complete
 
-- **Lucas must connect a GitHub connector in his claude.ai account.** The mark-writing feature cannot be built or tested until that connector exists and a real request/response pair has been observed through it — this is a hard requirement of how the Artifact `mcp` capability works (no guessing tool shapes).
-- **Scheduled-agent write access to GitHub is unverified.** The likely approach is for the scheduled agent to use the same GitHub connector (rather than raw git credentials) to commit `data/papers.json` updates — to be confirmed when the scheduled task is actually built and run once manually.
-- Declaring the `mcp` capability on the Artifact means the page cannot be shared publicly (a platform-level restriction) — acceptable here since Lucas is the only intended viewer.
+- **Scheduled-agent write access to GitHub.** This is a *different* mechanism than the browser-side connector below — a scheduled cloud agent has normal shell/git tool access, so the plan is to authenticate it with a GitHub Personal Access Token (Lucas will need to generate one and make it available to the scheduled task) and commit via plain `git`/`gh` CLI. Not blocked by the connector issue below; to be confirmed when the scheduled task is actually built and run once manually.
+- **Browser-side GitHub connector for marks sync is not yet usable.** Lucas attempted to connect a GitHub connector in his claude.ai account, but as of 2026-07-24 no connector tools are visible/callable from this session (checked via the MCP registry lookup and direct tool search — both came up empty). Cause unconfirmed: could be propagation delay, an incomplete connection, or this session type not exposing claude.ai account connectors the same way the web chat does. **Decision: ship v1 with localStorage-only marks and revisit the GitHub-connector sync as a fast-follow** once connector tools are confirmed observable from a Claude session (required before writing any `window.claude.mcp` call, per the artifact-capabilities rules — no guessing a tool's argument/result shape).
+- If the GitHub-connector fast-follow does happen, declaring the `mcp` capability on the Artifact means the page can no longer be shared publicly (a platform-level restriction) — acceptable since Lucas is the only intended viewer.
 
 ## Testing / validation plan
 
 - Run the scheduled agent's research logic once manually (not on the cron schedule) before trusting it to run unattended, and sanity-check the output against the required-fields checklist above.
 - Verify the Artifact republish actually updates content at the existing (bookmarked) URL rather than minting a new one.
-- Verify a mark round-trips end to end: click in the browser → commit lands in `data/marks.json` on GitHub → reload reflects the mark.
+- Verify a mark round-trips end to end: click in the browser → localStorage updates → reload reflects the mark (v1). When the GitHub-connector fast-follow lands, re-verify end to end: click → commit lands in `data/marks.json` on GitHub → reload reflects the mark.
 - Verify dedupe: run the research pass twice against the same date range and confirm no paper appears twice in `data/papers.json`.
