@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Digest</title>
+<style>
+  :root {
+    --bg: #f1f3f0;
+    --surface: #ffffff;
+    --ink: #16211d;
+    --ink-muted: #5c6b66;
+    --line: #d3d9d5;
+    --accent: #0d7a72;
+    --accent-ink: #ffffff;
+    --warn: #b5762a;
+    --critical: #a63d34;
+    --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'URW Palladio L', Georgia, serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101613; --surface: #182019; --ink: #e6ece8; --ink-muted: #8fa39c;
+      --line: #28332e; --accent: #3fd9c7; --accent-ink: #0a1512; --warn: #d99a4e; --critical: #d9695d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101613; --surface: #182019; --ink: #e6ece8; --ink-muted: #8fa39c;
+    --line: #28332e; --accent: #3fd9c7; --accent-ink: #0a1512; --warn: #d99a4e; --critical: #d9695d;
+  }
+  :root[data-theme="light"] {
+    --bg: #f1f3f0; --surface: #ffffff; --ink: #16211d; --ink-muted: #5c6b66;
+    --line: #d3d9d5; --accent: #0d7a72; --accent-ink: #ffffff; --warn: #b5762a; --critical: #a63d34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 20px 96px; }
+  header.masthead { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 20px; }
+  header.masthead h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.9rem;
+    margin: 0 0 4px;
+    text-wrap: balance;
+  }
+  header.masthead .date-line {
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+  }
+  nav.tabs { display: flex; gap: 4px; margin: 20px 0 12px; }
+  nav.tabs button {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+    padding: 6px 14px;
+    cursor: pointer;
+  }
+  nav.tabs button[aria-selected="true"] {
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  nav.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .chip {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+    background: none;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .archive-date {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 28px 0 8px;
+  }
+  .card { border-top: 1px solid var(--line); padding: 18px 0; }
+  .card-head { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+  .card-head-main { flex: 1; }
+  .card h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+  .card .meta {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .card .meta .tag { text-transform: uppercase; letter-spacing: 0.03em; }
+  .card p.summary { margin: 0; max-width: 62ch; }
+  .card .actions { display: flex; gap: 8px; margin-top: 10px; }
+  .card .actions button {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .card .actions button.active-used { border-color: var(--accent); color: var(--accent); }
+  .card .actions button.active-skip { border-color: var(--critical); color: var(--critical); }
+  .card .actions button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .card.marked-skip { opacity: 0.55; }
+  .detail { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 0.85rem; }
+  .card.expanded .detail { display: block; }
+  .detail dt { color: var(--ink-muted); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.04em; margin-top: 10px; }
+  .detail dt:first-child { margin-top: 0; }
+  .detail dd { margin: 2px 0 0; }
+  .detail ol { margin: 4px 0 0; padding-left: 20px; }
+  .detail a { color: var(--accent); }
+  .empty-state { padding: 48px 0; text-align: center; color: var(--ink-muted); font-family: var(--font-display); font-size: 1.1rem; }
+  a.outlink { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+  a.outlink:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <h1>Research Digest</h1>
+    <div class="date-line" id="date-line"></div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button type="button" id="tab-today" role="tab" aria-selected="true">Today</button>
+    <button type="button" id="tab-archive" role="tab" aria-selected="false">Archive</button>
+  </nav>
+
+  <div class="chips" id="chips"></div>
+
+  <main id="feed"></main>
+</div>
+
+<script id="papers-data" type="application/json">__PAPERS_DATA__</script>
+<script>
+(function () {
+  var ALL_PAPERS = JSON.parse(document.getElementById('papers-data').textContent);
+
+  var CATEGORY_LABELS = {
+    cell_therapy: 'Cell Therapy',
+    regenerative_medicine: 'Regenerative Medicine',
+    clinical_trial: 'Clinical Trial',
+    neuroscience: 'Neuroscience',
+    ai_biology: 'AI + Biology',
+    biomedical_devices: 'Biomedical Devices',
+    tissue_engineering: 'Tissue Engineering',
+    gene_therapy: 'Gene Therapy'
+  };
+
+  var MARKS_KEY = 'research-digest-marks-v1';
+  var state = {
+    tab: 'today',
+    category: null,
+    marks: loadMarks()
+  };
+
+  function loadMarks() {
+    try {
+      return JSON.parse(window.localStorage.getItem(MARKS_KEY)) || {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveMarks() {
+    window.localStorage.setItem(MARKS_KEY, JSON.stringify(state.marks));
+  }
+
+  function latestDate(papers) {
+    var dates = papers.map(function (p) { return p.date_surfaced; });
+    if (dates.length === 0) return null;
+    return dates.reduce(function (a, b) { return a > b ? a : b; });
+  }
+
+  function groupByDate(papers) {
+    var groups = {};
+    papers.forEach(function (p) {
+      (groups[p.date_surfaced] = groups[p.date_surfaced] || []).push(p);
+    });
+    return groups;
+  }
+
+  function renderChips() {
+    var chipsEl = document.getElementById('chips');
+    chipsEl.innerHTML = '';
+    var allBtn = makeChip('All', state.category === null, function () {
+      state.category = null;
+      render();
+    });
+    chipsEl.appendChild(allBtn);
+    Object.keys(CATEGORY_LABELS).forEach(function (slug) {
+      var btn = makeChip(CATEGORY_LABELS[slug], state.category === slug, function () {
+        state.category = state.category === slug ? null : slug;
+        render();
+      });
+      chipsEl.appendChild(btn);
+    });
+  }
+
+  function makeChip(label, pressed, onClick) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip';
+    btn.textContent = label;
+    btn.setAttribute('aria-pressed', String(pressed));
+    btn.addEventListener('click', onClick);
+    return btn;
+  }
+
+  function markLabel(paperId) {
+    return state.marks[paperId];
+  }
+
+  function setMark(paperId, value) {
+    if (state.marks[paperId] === value) {
+      delete state.marks[paperId];
+    } else {
+      state.marks[paperId] = value;
+    }
+    saveMarks();
+    render();
+  }
+
+  function renderCard(paper) {
+    var card = document.createElement('article');
+    card.className = 'card';
+    var mark = markLabel(paper.id);
+    if (mark === 'skip') card.classList.add('marked-skip');
+
+    var head = document.createElement('div');
+    head.className = 'card-head';
+    head.addEventListener('click', function () {
+      card.classList.toggle('expanded');
+    });
+
+    var main = document.createElement('div');
+    main.className = 'card-head-main';
+
+    var h2 = document.createElement('h2');
+    h2.textContent = paper.title;
+    main.appendChild(h2);
+
+    var meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.innerHTML =
+      '<span class="tag">' + (CATEGORY_LABELS[paper.category] || paper.category) + '</span>' +
+      '<span>' + paper.journal + ' &middot; ' + paper.year + '</span>' +
+      '<span>' + paper.citation_count.toLocaleString() + ' cites</span>';
+    main.appendChild(meta);
+
+    var summary = document.createElement('p');
+    summary.className = 'summary';
+    summary.textContent = paper.summary;
+    main.appendChild(summary);
+
+    var actions = document.createElement('div');
+    actions.className = 'actions';
+    var usedBtn = document.createElement('button');
+    usedBtn.type = 'button';
+    usedBtn.textContent = 'Used for video';
+    if (mark === 'used') usedBtn.classList.add('active-used');
+    usedBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setMark(paper.id, 'used');
+    });
+    var skipBtn = document.createElement('button');
+    skipBtn.type = 'button';
+    skipBtn.textContent = 'Not interested';
+    if (mark === 'skip') skipBtn.classList.add('active-skip');
+    skipBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setMark(paper.id, 'skip');
+    });
+    actions.appendChild(usedBtn);
+    actions.appendChild(skipBtn);
+    main.appendChild(actions);
+
+    head.appendChild(main);
+    card.appendChild(head);
+
+    var detail = document.createElement('dl');
+    detail.className = 'detail';
+
+    var linkDt = document.createElement('dt');
+    linkDt.textContent = 'Link';
+    var linkDd = document.createElement('dd');
+    var a = document.createElement('a');
+    a.href = paper.link;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.className = 'outlink';
+    a.textContent = paper.link;
+    a.addEventListener('click', function (e) { e.stopPropagation(); });
+    linkDd.appendChild(a);
+
+    var retractionDt = document.createElement('dt');
+    retractionDt.textContent = 'Retraction / correction status';
+    var retractionDd = document.createElement('dd');
+    retractionDd.textContent = paper.retraction_status;
+
+    var citationDt = document.createElement('dt');
+    citationDt.textContent = 'Citation count';
+    var citationDd = document.createElement('dd');
+    citationDd.textContent = paper.citation_count.toLocaleString() + ' (' + paper.citation_source + ', checked ' + paper.citation_checked_date + ')';
+
+    detail.appendChild(linkDt);
+    detail.appendChild(linkDd);
+    detail.appendChild(retractionDt);
+    detail.appendChild(retractionDd);
+    detail.appendChild(citationDt);
+    detail.appendChild(citationDd);
+
+    var contraDt = document.createElement('dt');
+    contraDt.textContent = 'Contradicting papers';
+    detail.appendChild(contraDt);
+    var contraDd = document.createElement('dd');
+    if (paper.contradicting_papers.length === 0) {
+      contraDd.textContent = 'None found';
+    } else {
+      var ol = document.createElement('ol');
+      paper.contradicting_papers.forEach(function (cp) {
+        var li = document.createElement('li');
+        var cpA = document.createElement('a');
+        cpA.href = cp.link;
+        cpA.target = '_blank';
+        cpA.rel = 'noopener noreferrer';
+        cpA.className = 'outlink';
+        cpA.textContent = cp.title;
+        cpA.addEventListener('click', function (e) { e.stopPropagation(); });
+        li.appendChild(cpA);
+        ol.appendChild(li);
+      });
+      contraDd.appendChild(ol);
+    }
+    detail.appendChild(contraDd);
+
+    card.appendChild(detail);
+    return card;
+  }
+
+  function currentPapers() {
+    var latest = latestDate(ALL_PAPERS);
+    var groups = groupByDate(ALL_PAPERS);
+    var papers;
+    if (state.tab === 'today') {
+      papers = latest ? (groups[latest] || []) : [];
+    } else {
+      papers = ALL_PAPERS.filter(function (p) { return p.date_surfaced !== latest; });
+    }
+    if (state.category) {
+      papers = papers.filter(function (p) { return p.category === state.category; });
+    }
+    return { papers: papers, latest: latest };
+  }
+
+  function render() {
+    document.getElementById('tab-today').setAttribute('aria-selected', String(state.tab === 'today'));
+    document.getElementById('tab-archive').setAttribute('aria-selected', String(state.tab === 'archive'));
+    renderChips();
+
+    var feed = document.getElementById('feed');
+    feed.innerHTML = '';
+
+    if (ALL_PAPERS.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.textContent = 'No digest yet -- check back once the first daily run completes.';
+      feed.appendChild(empty);
+      document.getElementById('date-line').textContent = '';
+      return;
+    }
+
+    var result = currentPapers();
+    document.getElementById('date-line').textContent = result.latest ? 'Latest digest: ' + result.latest : '';
+
+    if (state.tab === 'today') {
+      result.papers.forEach(function (p) { feed.appendChild(renderCard(p)); });
+    } else {
+      var groups = groupByDate(result.papers);
+      Object.keys(groups).sort().reverse().forEach(function (date) {
+        var heading = document.createElement('div');
+        heading.className = 'archive-date';
+        heading.textContent = date;
+        feed.appendChild(heading);
+        groups[date].forEach(function (p) { feed.appendChild(renderCard(p)); });
+      });
+    }
+
+    if (result.papers.length === 0) {
+      var noResults = document.createElement('div');
+      noResults.className = 'empty-state';
+      noResults.textContent = 'No papers match this filter.';
+      feed.appendChild(noResults);
+    }
+  }
+
+  document.getElementById('tab-today').addEventListener('click', function () {
+    state.tab = 'today';
+    render();
+  });
+  document.getElementById('tab-archive').addEventListener('click', function () {
+    state.tab = 'archive';
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
