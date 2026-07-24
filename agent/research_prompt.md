@@ -27,15 +27,22 @@ Rules:
 - At least 1 each from `cell_therapy`, `regenerative_medicine`,
   `clinical_trial`, `neuroscience`. The remaining 6 may be from any category.
 - Search year-descending: try 2026 first, then 2025, 2024, ... down to 2019,
-  per category. Prefer the newest strong paper; only drop to an older year if
-  that's where the strongest candidate for that slot actually is. Never pick
-  a weak paper just to stay recent.
+  per category. Strongly prefer newer papers: when a newer and an older
+  paper both qualify for a slot, the newer one wins by default. Only let an
+  older paper win if it's substantially more significant than the newer
+  candidate (a genuine landmark, not just "has more citations") -- a
+  merely-decent older paper should lose to a good newer one.
 - All four must hold for each paper: (a) groundbreaking/headline research or
   a major review of a hot area, (b) recent per the year rule above,
-  (c) well-cited -- get a real citation count from Semantic Scholar or Google
-  Scholar and note which source + today's date, (d) has a well-defined
-  methods section with good figures (a press release or news article cannot
-  be the primary source for a slot, though may be cited as context).
+  (c) well-cited -- with one exception: if the paper was published within
+  roughly the last 6 months, a low or even single-digit citation count is
+  expected and fine -- do not reject or downgrade a recent, groundbreaking
+  paper just because it hasn't accumulated citations yet. For papers older
+  than ~6 months, a real citation count from Semantic Scholar or Google
+  Scholar (note which source + today's date) is expected to actually back
+  up the "groundbreaking" claim, (d) has a well-defined methods section with
+  good figures (a press release or news article cannot be the primary
+  source for a slot, though may be cited as context).
 - Never pick a paper whose `id` or `title` already exists in
   `data/papers.json`.
 - For each paper, check Retraction Watch, PubPeer, and the journal site for

@@ -11,8 +11,8 @@ Neuroscience; AI applied to neuroscience/biology/biomedical research; biomedical
 ## Selection criteria (all four should hold for a paper to qualify)
 
 1. Groundbreaking/headline research — original research, or a major review of a genuinely hot area.
-2. Relatively recent — search year-descending starting at 2026, falling back to 2025, 2024, ... down to 2019 as needed per category. Prefer the newest possible pick, but don't force a weak/non-groundbreaking paper just to stay recent — drop to an older year if that's where the strongest paper is.
-3. Well-cited — report an actual citation count, its source (e.g. Semantic Scholar, Google Scholar), and the date checked, since counts drift.
+2. Relatively recent — search year-descending starting at 2026, falling back to 2025, 2024, ... down to 2019 as needed per category. **Recency rule tightened 2026-07-24:** strongly prefer newer over older. When a newer and an older paper both qualify for a slot, the newer one wins by default; an older paper only wins if it's substantially more significant (a genuine landmark), not merely "better cited." This is a soft preference (recency as tiebreaker), not a hard cutoff — a truly landmark older paper can still beat a mediocre new one.
+3. Well-cited — report an actual citation count, its source (e.g. Semantic Scholar, Google Scholar), and the date checked, since counts drift. **Exception added 2026-07-24:** papers published within roughly the last 6 months are exempt from this bar — a low or single-digit citation count on a genuinely recent, groundbreaking paper is expected and should not disqualify or downgrade it. Papers older than ~6 months still need a real citation count to back up the "groundbreaking" claim.
 4. Well-defined methods section with good figures — this generally rules out using a press release or news article as the primary item for a slot, though such pieces may be referenced as context within a paper's write-up.
 
 ## Daily volume and category mix
