@@ -19,3 +19,7 @@ Writes `site/dist/index.html`, which then gets published via the Artifact tool.
 ## Running tests
 
     python -m pytest tests/ -v
+
+## Live site
+
+https://claude.ai/code/artifact/8f9f20cb-ee4c-4aa8-8ffe-e025d2771d97
