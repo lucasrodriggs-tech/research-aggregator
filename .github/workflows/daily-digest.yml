@@ -26,4 +26,4 @@ jobs:
             order. You are running as a scheduled GitHub Actions workflow with the
             repo already checked out at the current working directory.
           claude_args: |
-            --max-turns 150
+            --max-turns 150 --dangerously-skip-permissions
