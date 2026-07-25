@@ -88,6 +88,7 @@
   }
   .chip[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
   .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #date-chips:empty { display: none; }
   .archive-date {
     font-family: var(--font-body);
     font-size: 0.78rem;
@@ -157,6 +158,7 @@
   </nav>
 
   <div class="chips" id="chips"></div>
+  <div class="chips" id="date-chips"></div>
 
   <main id="feed"></main>
 </div>
@@ -182,6 +184,7 @@
   var state = {
     tab: 'today',
     category: null,
+    archiveDate: null,
     marks: {},
     markError: null,
     expanded: {}
@@ -221,6 +224,34 @@
         render();
       });
       chipsEl.appendChild(btn);
+    });
+  }
+
+  function renderDateChips() {
+    var dateChipsEl = document.getElementById('date-chips');
+    dateChipsEl.innerHTML = '';
+    if (state.tab !== 'archive') return;
+
+    var latest = latestDate(ALL_PAPERS);
+    var archivePapers = ALL_PAPERS.filter(function (p) { return p.date_surfaced !== latest; });
+    var dates = [];
+    archivePapers.forEach(function (p) {
+      if (dates.indexOf(p.date_surfaced) === -1) dates.push(p.date_surfaced);
+    });
+    dates.sort().reverse();
+    if (dates.length <= 1) return;
+
+    var allBtn = makeChip('All Dates', state.archiveDate === null, function () {
+      state.archiveDate = null;
+      render();
+    });
+    dateChipsEl.appendChild(allBtn);
+    dates.forEach(function (date) {
+      var btn = makeChip(date, state.archiveDate === date, function () {
+        state.archiveDate = state.archiveDate === date ? null : date;
+        render();
+      });
+      dateChipsEl.appendChild(btn);
     });
   }
 
@@ -419,6 +450,9 @@
       papers = latest ? (groups[latest] || []) : [];
     } else {
       papers = ALL_PAPERS.filter(function (p) { return p.date_surfaced !== latest; });
+      if (state.archiveDate) {
+        papers = papers.filter(function (p) { return p.date_surfaced === state.archiveDate; });
+      }
     }
     if (state.category) {
       papers = papers.filter(function (p) { return p.category === state.category; });
@@ -430,6 +464,7 @@
     document.getElementById('tab-today').setAttribute('aria-selected', String(state.tab === 'today'));
     document.getElementById('tab-archive').setAttribute('aria-selected', String(state.tab === 'archive'));
     renderChips();
+    renderDateChips();
 
     var feed = document.getElementById('feed');
     feed.innerHTML = '';
