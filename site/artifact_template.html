@@ -132,6 +132,29 @@
   }
   .settings-panel .day-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .settings-error { font-size: 0.75rem; color: var(--critical); margin-top: 8px; }
+  .calendar-month { margin-top: 10px; }
+  .calendar-heading { font-size: 0.8rem; font-weight: 600; text-align: center; margin-bottom: 6px; }
+  .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; text-align: center; font-size: 0.75rem; }
+  .calendar-dow { color: var(--ink-muted); text-transform: uppercase; font-size: 0.65rem; padding: 2px 0; }
+  .calendar-cell { padding: 5px 0; border: 1px solid var(--line); cursor: pointer; }
+  .calendar-cell.empty { border: none; cursor: default; }
+  .calendar-cell.disabled { opacity: 0.3; cursor: not-allowed; }
+  .calendar-cell.selected {
+    border: 2px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    font-weight: 700;
+  }
+  .clear-dates-link {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    background: none;
+    border: none;
+    color: var(--accent);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 8px;
+  }
   .archive-date {
     font-family: var(--font-body);
     font-size: 0.78rem;
@@ -459,6 +482,46 @@
       panel.appendChild(daysField);
     }
 
+    if (s.frequency === 'custom') {
+      var calField = document.createElement('div');
+      calField.className = 'field';
+      var calLabel = document.createElement('label');
+      calLabel.className = 'field-label';
+      calLabel.textContent = 'Delivery days';
+      calField.appendChild(calLabel);
+
+      var today = new Date();
+      var todayIso = isoDate(today.getFullYear(), today.getMonth(), today.getDate());
+      var nextMonthDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+
+      function toggleCustomDate(iso) {
+        var next = shallowCloneSchedule(s);
+        var idx = next.custom_dates.indexOf(iso);
+        if (idx === -1) {
+          next.custom_dates = next.custom_dates.concat([iso]).sort();
+        } else {
+          next.custom_dates = next.custom_dates.filter(function (d) { return d !== iso; });
+        }
+        saveSchedule(next);
+      }
+
+      calField.appendChild(renderMonthCalendar(today.getFullYear(), today.getMonth(), todayIso, s.custom_dates, toggleCustomDate));
+      calField.appendChild(renderMonthCalendar(nextMonthDate.getFullYear(), nextMonthDate.getMonth(), todayIso, s.custom_dates, toggleCustomDate));
+
+      var clearLink = document.createElement('button');
+      clearLink.type = 'button';
+      clearLink.className = 'clear-dates-link';
+      clearLink.textContent = 'Clear all';
+      clearLink.addEventListener('click', function () {
+        var next = shallowCloneSchedule(s);
+        next.custom_dates = [];
+        saveSchedule(next);
+      });
+      calField.appendChild(clearLink);
+
+      panel.appendChild(calField);
+    }
+
     if (state.scheduleError) {
       var err = document.createElement('div');
       err.className = 'settings-error';
@@ -493,6 +556,65 @@
       });
       dateChipsEl.appendChild(btn);
     });
+  }
+
+  function daysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  function pad2(n) { return n < 10 ? '0' + n : String(n); }
+
+  function isoDate(year, month, day) {
+    return year + '-' + pad2(month + 1) + '-' + pad2(day);
+  }
+
+  function buildMonthCells(year, month) {
+    var firstWeekday = new Date(year, month, 1).getDay();
+    var total = daysInMonth(year, month);
+    var cells = [];
+    for (var i = 0; i < firstWeekday; i++) cells.push(null);
+    for (var d = 1; d <= total; d++) cells.push(d);
+    return cells;
+  }
+
+  function renderMonthCalendar(year, month, todayIso, selectedDates, onToggle) {
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var wrap = document.createElement('div');
+    wrap.className = 'calendar-month';
+    var heading = document.createElement('div');
+    heading.className = 'calendar-heading';
+    heading.textContent = monthNames[month] + ' ' + year;
+    wrap.appendChild(heading);
+
+    var grid = document.createElement('div');
+    grid.className = 'calendar-grid';
+    ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].forEach(function (label) {
+      var head = document.createElement('div');
+      head.className = 'calendar-dow';
+      head.textContent = label;
+      grid.appendChild(head);
+    });
+
+    buildMonthCells(year, month).forEach(function (day) {
+      var cell = document.createElement('div');
+      cell.className = 'calendar-cell';
+      if (day === null) {
+        cell.classList.add('empty');
+      } else {
+        var iso = isoDate(year, month, day);
+        cell.textContent = String(day);
+        if (iso < todayIso) {
+          cell.classList.add('disabled');
+        } else {
+          if (selectedDates.indexOf(iso) !== -1) cell.classList.add('selected');
+          cell.addEventListener('click', function () { onToggle(iso); });
+        }
+      }
+      grid.appendChild(cell);
+    });
+
+    wrap.appendChild(grid);
+    return wrap;
   }
 
   function makeChip(label, pressed, onClick) {
