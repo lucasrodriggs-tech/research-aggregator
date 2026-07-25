@@ -1,0 +1,27 @@
+name: Daily Research Digest
+
+on:
+  schedule:
+    - cron: "4 11 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  daily-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Run daily research digest
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Follow the instructions in agent/github_actions_prompt.md exactly, in
+            order. You are running as a scheduled GitHub Actions workflow with the
+            repo already checked out at the current working directory.
+          claude_args: |
+            --max-turns 150
