@@ -83,6 +83,9 @@ function githubHeaders(env) {
   };
 }
 
+// CORS headers restrict browser-based callers only. This is NOT authentication.
+// The Worker URL, once deployed, is publicly POST-able by anyone with the URL
+// (e.g., via curl). CORS enforcement happens in browsers, not on this server.
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "https://lucasrodriggs-tech.github.io",

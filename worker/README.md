@@ -31,3 +31,13 @@ Cloudflare account and a scoped GitHub token):
    `https://research-aggregator-marks.<your-subdomain>.workers.dev`.
    That URL is needed to finish the site integration (see the main repo's
    implementation plan, Task 7).
+
+## Security note
+
+The CORS headers in this Worker restrict browser-based callers only—they are
+not authentication. Once deployed, the Worker URL is publicly reachable and
+can be called by anyone with the URL via direct requests (curl, scripts, etc.),
+since CORS enforcement is a browser feature, not a server feature. The practical
+impact is limited (worst case, someone pollutes data/marks.json with arbitrary
+mark entries, affecting future re-ranking but not exposing sensitive data or
+incurring costs), but it's worth understanding before deployment.
