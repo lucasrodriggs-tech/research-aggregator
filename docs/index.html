@@ -435,9 +435,10 @@
       DAY_ORDER.forEach(function (day) {
         var pressed = s.days.indexOf(day) !== -1;
         var chip = makeChip(DAY_LABELS[day], pressed, function () {
+          if (singleSelect && pressed) return;
           var next = shallowCloneSchedule(s);
           if (singleSelect) {
-            next.days = pressed ? [] : [day];
+            next.days = [day];
           } else {
             if (pressed) {
               next.days = s.days.filter(function (d) { return d !== day; });
