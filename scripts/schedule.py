@@ -59,12 +59,18 @@ def is_delivery_day(schedule, today):
         return last_date is None or (today - last_date).days >= 2
 
     if frequency in ("twice_weekly", "weekly"):
+        days = schedule.get("days", [])
+        if not days:
+            return True  # no days configured -- fall back to daily behavior
         today_abbrev = WEEKDAY_ABBREVS[today.weekday()]
-        return today_abbrev in schedule.get("days", [])
+        return today_abbrev in days
 
     if frequency == "biweekly":
+        days = schedule.get("days", [])
+        if not days:
+            return True  # no days configured -- fall back to daily behavior
         today_abbrev = WEEKDAY_ABBREVS[today.weekday()]
-        if today_abbrev not in schedule.get("days", []):
+        if today_abbrev not in days:
             return False
         return last_date is None or (today - last_date).days >= 14
 

@@ -26,8 +26,11 @@ Lucas controls how many papers get delivered and how often via
     from scripts.schedule import merge_schedule_defaults, is_delivery_day
     from datetime import date
 
-    with open('data/schedule.json', encoding='utf-8') as f:
-        raw = json.load(f)
+    try:
+        with open('data/schedule.json', encoding='utf-8') as f:
+            raw = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        raw = {}
     schedule = merge_schedule_defaults(raw)
     today = date.today()
     print(json.dumps({'is_delivery_day': is_delivery_day(schedule, today), 'schedule': schedule}))

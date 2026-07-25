@@ -100,6 +100,31 @@ def test_is_delivery_day_biweekly_requires_both_weekday_and_gap():
     assert is_delivery_day(schedule, date(2026, 8, 8)) is True
 
 
+def test_is_delivery_day_weekly_empty_days_falls_back_to_daily():
+    # An owner who deselected every day chip must not silently stop delivery forever.
+    schedule = merge_schedule_defaults({"frequency": "weekly", "days": []})
+    assert is_delivery_day(schedule, date(2026, 7, 25)) is True
+    assert is_delivery_day(schedule, date(2026, 7, 26)) is True
+
+
+def test_is_delivery_day_twice_weekly_empty_days_falls_back_to_daily():
+    schedule = merge_schedule_defaults({"frequency": "twice_weekly", "days": []})
+    assert is_delivery_day(schedule, date(2026, 7, 25)) is True
+    assert is_delivery_day(schedule, date(2026, 7, 26)) is True
+
+
+def test_is_delivery_day_biweekly_empty_days_falls_back_to_daily():
+    # Same failure mode as weekly/twice_weekly: an empty days list must never
+    # permanently block delivery, even though biweekly normally also gates on
+    # a 14-day gap since the last delivery.
+    schedule = merge_schedule_defaults({
+        "frequency": "biweekly",
+        "days": [],
+        "last_delivered_date": "2026-07-25",
+    })
+    assert is_delivery_day(schedule, date(2026, 7, 26)) is True
+
+
 def test_is_delivery_day_custom_matches_listed_date():
     schedule = merge_schedule_defaults({
         "frequency": "custom",
