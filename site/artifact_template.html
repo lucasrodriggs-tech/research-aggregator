@@ -89,6 +89,72 @@
   .chip[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
   .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   #date-chips:empty { display: none; }
+  .settings-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    margin: 16px 0;
+  }
+  .settings-bar button {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    background: none;
+    border: none;
+    color: var(--accent);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+  }
+  .settings-panel { border: 1px solid var(--line); padding: 14px; margin: 0 0 16px; }
+  .settings-panel[hidden] { display: none; }
+  .settings-panel .field { margin-bottom: 14px; }
+  .settings-panel .field:last-child { margin-bottom: 0; }
+  .settings-panel label.field-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .settings-panel input[type="range"] { width: 100%; }
+  .settings-panel select {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .settings-panel .day-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .settings-error { font-size: 0.75rem; color: var(--critical); margin-top: 8px; }
+  .calendar-month { margin-top: 10px; }
+  .calendar-heading { font-size: 0.8rem; font-weight: 600; text-align: center; margin-bottom: 6px; }
+  .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; text-align: center; font-size: 0.75rem; }
+  .calendar-dow { color: var(--ink-muted); text-transform: uppercase; font-size: 0.65rem; padding: 2px 0; }
+  .calendar-cell { padding: 5px 0; border: 1px solid var(--line); cursor: pointer; }
+  .calendar-cell.empty { border: none; cursor: default; }
+  .calendar-cell.disabled { opacity: 0.3; cursor: not-allowed; }
+  .calendar-cell.selected {
+    border: 2px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    font-weight: 700;
+  }
+  .clear-dates-link {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    background: none;
+    border: none;
+    color: var(--accent);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 8px;
+  }
   .archive-date {
     font-family: var(--font-body);
     font-size: 0.78rem;
@@ -152,6 +218,12 @@
     <div class="date-line" id="date-line"></div>
   </header>
 
+  <div class="settings-bar">
+    <span id="settings-summary"></span>
+    <button type="button" id="settings-edit-btn">Edit</button>
+  </div>
+  <div class="settings-panel" id="settings-panel" hidden></div>
+
   <nav class="tabs" role="tablist">
     <button type="button" id="tab-today" role="tab" aria-selected="true">Today</button>
     <button type="button" id="tab-archive" role="tab" aria-selected="false">Archive</button>
@@ -181,19 +253,97 @@
 
   var MARK_WRITE_ENDPOINT = 'https://research-aggregator-marks.lucas-research-aggregator.workers.dev/mark';
   var MARKS_RAW_URL = 'https://raw.githubusercontent.com/lucasrodriggs-tech/research-aggregator/master/data/marks.json';
+  var SCHEDULE_WRITE_ENDPOINT = 'https://research-aggregator-marks.lucas-research-aggregator.workers.dev/schedule';
+  var SCHEDULE_RAW_URL = 'https://raw.githubusercontent.com/lucasrodriggs-tech/research-aggregator/master/data/schedule.json';
+
+  var FREQUENCY_LABELS = {
+    daily: 'Daily',
+    every_other_day: 'Every other day',
+    twice_weekly: 'Twice a week',
+    weekly: 'Once a week',
+    biweekly: 'Once every other week',
+    custom: 'Custom'
+  };
+
+  var DEFAULT_DAYS_BY_FREQUENCY = {
+    twice_weekly: ['wed', 'sat'],
+    weekly: ['sat'],
+    biweekly: ['sat']
+  };
+
+  var DAY_LABELS = { sun: 'Sun', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat' };
+  var DAY_ORDER = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+  var DEFAULT_SCHEDULE = {
+    count: 10,
+    frequency: 'daily',
+    days: [],
+    custom_dates: [],
+    last_delivered_date: null
+  };
+
   var state = {
     tab: 'today',
     category: null,
     archiveDate: null,
     marks: {},
     markError: null,
-    expanded: {}
+    expanded: {},
+    schedule: DEFAULT_SCHEDULE,
+    scheduleEditing: false,
+    scheduleError: null
   };
 
   function loadMarks() {
     return fetch(MARKS_RAW_URL, { cache: 'no-store' })
       .then(function (resp) { return resp.ok ? resp.json() : {}; })
       .catch(function () { return {}; });
+  }
+
+  function loadSchedule() {
+    return fetch(SCHEDULE_RAW_URL, { cache: 'no-store' })
+      .then(function (resp) { return resp.ok ? resp.json() : {}; })
+      .then(function (raw) {
+        var merged = {};
+        Object.keys(DEFAULT_SCHEDULE).forEach(function (key) { merged[key] = DEFAULT_SCHEDULE[key]; });
+        Object.keys(raw).forEach(function (key) { merged[key] = raw[key]; });
+        return merged;
+      })
+      .catch(function () { return DEFAULT_SCHEDULE; });
+  }
+
+  function shallowCloneSchedule(s) {
+    return {
+      count: s.count,
+      frequency: s.frequency,
+      days: s.days.slice(),
+      custom_dates: s.custom_dates.slice(),
+      last_delivered_date: s.last_delivered_date
+    };
+  }
+
+  function saveSchedule(next) {
+    var previous = state.schedule;
+    state.schedule = next;
+    state.scheduleError = null;
+    render();
+
+    fetch(SCHEDULE_WRITE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        count: next.count,
+        frequency: next.frequency,
+        days: next.days,
+        custom_dates: next.custom_dates
+      })
+    }).then(function (resp) {
+      if (!resp.ok) throw new Error('save failed');
+    }).catch(function () {
+      state.schedule = previous;
+      state.scheduleError = true;
+      render();
+    });
   }
 
   function latestDate(papers) {
@@ -227,6 +377,159 @@
     });
   }
 
+  function renderSettingsBar() {
+    var summary = document.getElementById('settings-summary');
+    var s = state.schedule;
+    var plural = s.count === 1 ? '' : 's';
+    summary.textContent = s.count + ' paper' + plural + '/delivery · ' + FREQUENCY_LABELS[s.frequency];
+
+    var panel = document.getElementById('settings-panel');
+    panel.hidden = !state.scheduleEditing;
+    document.getElementById('settings-edit-btn').textContent = state.scheduleEditing ? 'Done' : 'Edit';
+
+    if (!state.scheduleEditing) {
+      panel.innerHTML = '';
+      return;
+    }
+    renderSettingsPanel(panel);
+  }
+
+  function renderSettingsPanel(panel) {
+    panel.innerHTML = '';
+    var s = state.schedule;
+
+    var countField = document.createElement('div');
+    countField.className = 'field';
+    var countLabel = document.createElement('label');
+    countLabel.className = 'field-label';
+    countLabel.textContent = 'Papers per delivery: ' + s.count;
+    var countInput = document.createElement('input');
+    countInput.type = 'range';
+    countInput.min = '1';
+    countInput.max = '10';
+    countInput.value = String(s.count);
+    countInput.addEventListener('input', function () {
+      countLabel.textContent = 'Papers per delivery: ' + countInput.value;
+    });
+    countInput.addEventListener('change', function () {
+      var next = shallowCloneSchedule(s);
+      next.count = parseInt(countInput.value, 10);
+      saveSchedule(next);
+    });
+    countField.appendChild(countLabel);
+    countField.appendChild(countInput);
+    panel.appendChild(countField);
+
+    var freqField = document.createElement('div');
+    freqField.className = 'field';
+    var freqLabel = document.createElement('label');
+    freqLabel.className = 'field-label';
+    freqLabel.textContent = 'Frequency';
+    var freqSelect = document.createElement('select');
+    Object.keys(FREQUENCY_LABELS).forEach(function (key) {
+      var opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = FREQUENCY_LABELS[key];
+      if (key === s.frequency) opt.selected = true;
+      freqSelect.appendChild(opt);
+    });
+    freqSelect.addEventListener('change', function () {
+      var next = shallowCloneSchedule(s);
+      next.frequency = freqSelect.value;
+      var singleSelectTarget = freqSelect.value === 'weekly' || freqSelect.value === 'biweekly';
+      if (DEFAULT_DAYS_BY_FREQUENCY[freqSelect.value]) {
+        if (next.days.length === 0) {
+          next.days = DEFAULT_DAYS_BY_FREQUENCY[freqSelect.value].slice();
+        } else if (singleSelectTarget && next.days.length > 1) {
+          next.days = [next.days[0]];
+        }
+      }
+      saveSchedule(next);
+    });
+    freqField.appendChild(freqLabel);
+    freqField.appendChild(freqSelect);
+    panel.appendChild(freqField);
+
+    if (s.frequency === 'twice_weekly' || s.frequency === 'weekly' || s.frequency === 'biweekly') {
+      var daysField = document.createElement('div');
+      daysField.className = 'field';
+      var daysLabel = document.createElement('label');
+      daysLabel.className = 'field-label';
+      daysLabel.textContent = 'Days';
+      daysField.appendChild(daysLabel);
+      var daysRow = document.createElement('div');
+      daysRow.className = 'day-chips';
+      var singleSelect = s.frequency !== 'twice_weekly';
+      DAY_ORDER.forEach(function (day) {
+        var pressed = s.days.indexOf(day) !== -1;
+        var chip = makeChip(DAY_LABELS[day], pressed, function () {
+          if (singleSelect && pressed) return;
+          var next = shallowCloneSchedule(s);
+          if (singleSelect) {
+            next.days = [day];
+          } else {
+            if (pressed) {
+              next.days = s.days.filter(function (d) { return d !== day; });
+            } else {
+              next.days = s.days.concat([day]);
+            }
+          }
+          saveSchedule(next);
+        });
+        daysRow.appendChild(chip);
+      });
+      daysField.appendChild(daysRow);
+      panel.appendChild(daysField);
+    }
+
+    if (s.frequency === 'custom') {
+      var calField = document.createElement('div');
+      calField.className = 'field';
+      var calLabel = document.createElement('label');
+      calLabel.className = 'field-label';
+      calLabel.textContent = 'Delivery days';
+      calField.appendChild(calLabel);
+
+      var today = new Date();
+      var todayIso = isoDate(today.getFullYear(), today.getMonth(), today.getDate());
+      var nextMonthDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+
+      function toggleCustomDate(iso) {
+        var next = shallowCloneSchedule(s);
+        var idx = next.custom_dates.indexOf(iso);
+        if (idx === -1) {
+          next.custom_dates = next.custom_dates.concat([iso]).sort();
+        } else {
+          next.custom_dates = next.custom_dates.filter(function (d) { return d !== iso; });
+        }
+        saveSchedule(next);
+      }
+
+      calField.appendChild(renderMonthCalendar(today.getFullYear(), today.getMonth(), todayIso, s.custom_dates, toggleCustomDate));
+      calField.appendChild(renderMonthCalendar(nextMonthDate.getFullYear(), nextMonthDate.getMonth(), todayIso, s.custom_dates, toggleCustomDate));
+
+      var clearLink = document.createElement('button');
+      clearLink.type = 'button';
+      clearLink.className = 'clear-dates-link';
+      clearLink.textContent = 'Clear all';
+      clearLink.addEventListener('click', function () {
+        var next = shallowCloneSchedule(s);
+        next.custom_dates = [];
+        saveSchedule(next);
+      });
+      calField.appendChild(clearLink);
+
+      panel.appendChild(calField);
+    }
+
+    if (state.scheduleError) {
+      var err = document.createElement('div');
+      err.className = 'settings-error';
+      err.textContent = "Couldn't save, try again";
+      panel.appendChild(err);
+    }
+  }
+
   function renderDateChips() {
     var dateChipsEl = document.getElementById('date-chips');
     dateChipsEl.innerHTML = '';
@@ -253,6 +556,65 @@
       });
       dateChipsEl.appendChild(btn);
     });
+  }
+
+  function daysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  function pad2(n) { return n < 10 ? '0' + n : String(n); }
+
+  function isoDate(year, month, day) {
+    return year + '-' + pad2(month + 1) + '-' + pad2(day);
+  }
+
+  function buildMonthCells(year, month) {
+    var firstWeekday = new Date(year, month, 1).getDay();
+    var total = daysInMonth(year, month);
+    var cells = [];
+    for (var i = 0; i < firstWeekday; i++) cells.push(null);
+    for (var d = 1; d <= total; d++) cells.push(d);
+    return cells;
+  }
+
+  function renderMonthCalendar(year, month, todayIso, selectedDates, onToggle) {
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var wrap = document.createElement('div');
+    wrap.className = 'calendar-month';
+    var heading = document.createElement('div');
+    heading.className = 'calendar-heading';
+    heading.textContent = monthNames[month] + ' ' + year;
+    wrap.appendChild(heading);
+
+    var grid = document.createElement('div');
+    grid.className = 'calendar-grid';
+    ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].forEach(function (label) {
+      var head = document.createElement('div');
+      head.className = 'calendar-dow';
+      head.textContent = label;
+      grid.appendChild(head);
+    });
+
+    buildMonthCells(year, month).forEach(function (day) {
+      var cell = document.createElement('div');
+      cell.className = 'calendar-cell';
+      if (day === null) {
+        cell.classList.add('empty');
+      } else {
+        var iso = isoDate(year, month, day);
+        cell.textContent = String(day);
+        if (iso < todayIso) {
+          cell.classList.add('disabled');
+        } else {
+          if (selectedDates.indexOf(iso) !== -1) cell.classList.add('selected');
+          cell.addEventListener('click', function () { onToggle(iso); });
+        }
+      }
+      grid.appendChild(cell);
+    });
+
+    wrap.appendChild(grid);
+    return wrap;
   }
 
   function makeChip(label, pressed, onClick) {
@@ -463,6 +825,7 @@
   function render() {
     document.getElementById('tab-today').setAttribute('aria-selected', String(state.tab === 'today'));
     document.getElementById('tab-archive').setAttribute('aria-selected', String(state.tab === 'archive'));
+    renderSettingsBar();
     renderChips();
     renderDateChips();
 
@@ -510,9 +873,17 @@
     state.tab = 'archive';
     render();
   });
+  document.getElementById('settings-edit-btn').addEventListener('click', function () {
+    state.scheduleEditing = !state.scheduleEditing;
+    render();
+  });
 
   loadMarks().then(function (marks) {
     state.marks = marks;
+    render();
+  });
+  loadSchedule().then(function (schedule) {
+    state.schedule = schedule;
     render();
   });
 })();
