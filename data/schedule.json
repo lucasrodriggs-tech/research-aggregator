@@ -1,7 +1,9 @@
 {
   "count": 10,
-  "frequency": "daily",
-  "days": [],
+  "frequency": "weekly",
+  "days": [
+    "sun"
+  ],
   "custom_dates": [],
   "last_delivered_date": null
 }
