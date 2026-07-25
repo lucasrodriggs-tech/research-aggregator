@@ -413,8 +413,13 @@
     freqSelect.addEventListener('change', function () {
       var next = shallowCloneSchedule(s);
       next.frequency = freqSelect.value;
-      if (DEFAULT_DAYS_BY_FREQUENCY[freqSelect.value] && next.days.length === 0) {
-        next.days = DEFAULT_DAYS_BY_FREQUENCY[freqSelect.value].slice();
+      var singleSelectTarget = freqSelect.value === 'weekly' || freqSelect.value === 'biweekly';
+      if (DEFAULT_DAYS_BY_FREQUENCY[freqSelect.value]) {
+        if (next.days.length === 0) {
+          next.days = DEFAULT_DAYS_BY_FREQUENCY[freqSelect.value].slice();
+        } else if (singleSelectTarget && next.days.length > 1) {
+          next.days = [next.days[0]];
+        }
       }
       saveSchedule(next);
     });
