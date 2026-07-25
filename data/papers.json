@@ -157,5 +157,174 @@
     "citation_source": "Semantic Scholar",
     "citation_checked_date": "2026-07-24",
     "contradicting_papers": []
+  },
+  {
+    "id": "natmed-2026-stempd-parkinsons-dopaminergic-cells",
+    "title": "Human embryonic stem cell-derived dopaminergic cells for Parkinson's disease: a phase 1/2 open-label trial",
+    "link": "https://www.nature.com/articles/s41591-026-04525-0",
+    "summary": "In this first-in-human European trial, researchers transplanted dopamine-producing neurons grown from human embryonic stem cells directly into the brains of eight people with moderate Parkinson's disease. After 12 months of follow-up under immunosuppression, the cell product caused no serious product-related adverse events and no graft-induced dyskinesia, a major feasibility milestone for replacing the neurons lost in Parkinson's disease with lab-grown cells. One of eight participants died from an unrelated pulmonary infection during follow-up, not attributed to the cell product. The trial is among the first pluripotent stem-cell therapies for Parkinson's approved for clinical testing in Europe.",
+    "journal": "Nature Medicine",
+    "year": 2026,
+    "category": "cell_therapy",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and the Nature Medicine site directly on 2026-07-25: no retraction, correction, or expression of concern found.",
+    "citation_count": 0,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": []
+  },
+  {
+    "id": "pnas-2026-digit-regeneration-gene-delivery",
+    "title": "Enhancer-directed gene delivery for digit regeneration based on conserved epidermal factors",
+    "link": "https://www.pnas.org/doi/10.1073/pnas.2532804123",
+    "summary": "Comparing regenerating zebrafish fins, salamander limbs, and mouse digit tips, researchers found that the transcription factors SP6 and SP8 act as a conserved genetic switch in wound skin that drives appendage regrowth, and that removing them blocks bony digit-tip regeneration in mice. They then packaged an AAV gene therapy carrying a zebrafish-derived regeneration enhancer to deliver FGF8, a downstream SP target, directly to amputation wounds, partially restoring regeneration in SP-deficient mice and accelerating it in normal mice. It is an early proof-of-concept for injury-site-specific gene therapy that could one day help regrow lost digit or limb tissue.",
+    "journal": "Proceedings of the National Academy of Sciences (PNAS)",
+    "year": 2026,
+    "category": "regenerative_medicine",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and the PNAS site directly on 2026-07-25: no retraction or correction found.",
+    "citation_count": 0,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": []
+  },
+  {
+    "id": "nature-2025-pig-kidney-xenotransplant-decedent",
+    "title": "Physiology and immunology of a pig-to-human decedent kidney xenotransplant",
+    "link": "https://www.nature.com/articles/s41586-025-09847-6",
+    "summary": "Surgeons transplanted a minimally gene-edited pig kidney into a brain-dead human maintained on a ventilator for a pre-planned 61-day study, the longest such xenotransplant physiology study to date. The kidney sustained hemodynamic and electrolyte stability and dialysis independence for weeks; antibody-mediated rejection emerged around day 33 but was fully reversed with plasma exchange, complement inhibition, and anti-thymocyte globulin. The study demonstrates both the promise and the immunological hurdles of pig-to-human kidney xenotransplantation as a potential answer to the organ-donor shortage.",
+    "journal": "Nature",
+    "year": 2025,
+    "category": "regenerative_medicine",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and Nature's site on 2026-07-25: no retraction found. Note a Publisher Correction (2026-02-12) and an Author Correction (2026-06-04) fixing mislabeled cell-frequency percentages in an extended data figure (e.g. a value corrected from '48%' to '0.48%'); these are figure-data corrections that do not affect the paper's core conclusions.",
+    "citation_count": 29,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": [
+      {
+        "title": "Immune profiling in a living human recipient of a gene-edited pig kidney",
+        "link": "https://www.nature.com/articles/s41591-025-04053-3"
+      }
+    ]
+  },
+  {
+    "id": "nejm-2026-ascent04-sacituzumab-pembrolizumab-tnbc",
+    "title": "Sacituzumab Govitecan plus Pembrolizumab for Advanced Triple-Negative Breast Cancer",
+    "link": "https://www.nejm.org/doi/full/10.1056/NEJMoa2508959",
+    "summary": "This international phase 3 trial (443 patients across 186 sites in 28 countries) tested whether adding the antibody-drug conjugate sacituzumab govitecan to the immunotherapy drug pembrolizumab works better than standard chemotherapy plus pembrolizumab as first-line treatment for PD-L1-positive metastatic triple-negative breast cancer. The combination cut the risk of progression or death by 35% (median progression-free survival 11.2 vs. 7.8 months) with a higher response rate and fewer treatment discontinuations. The FDA approved the combination in June 2026 based on these results, making it a likely new standard of care for this aggressive cancer subtype.",
+    "journal": "New England Journal of Medicine",
+    "year": 2026,
+    "category": "clinical_trial",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and the NEJM site directly on 2026-07-25: no retraction or correction found.",
+    "citation_count": 27,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": []
+  },
+  {
+    "id": "lancet-2026-evoke-semaglutide-alzheimers",
+    "title": "Efficacy and safety of oral semaglutide 14 mg (flexible dose) in early-stage symptomatic Alzheimer's disease (evoke and evoke+): two phase 3, randomised, placebo-controlled trials",
+    "link": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)00459-9/fulltext",
+    "summary": "Two identically designed phase 3 trials tested whether once-daily oral semaglutide (the active ingredient in Ozempic/Wegovy) could slow Alzheimer's progression in 3,808 adults with amyloid-confirmed early-stage disease, followed for up to 156 weeks across 566 sites in 40 countries. Despite strong hope from observational and diabetes-trial data suggesting GLP-1 drugs protect the brain, semaglutide showed no benefit over placebo on cognitive or functional decline, though it did significantly lower CSF biomarkers of tau pathology and neuroinflammation. The dissociation between biomarker activity and clinical benefit is a high-profile negative result for one of the most-hyped drug classes in medicine.",
+    "journal": "The Lancet",
+    "year": 2026,
+    "category": "clinical_trial",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and the Lancet site directly on 2026-07-25: no retraction or correction found.",
+    "citation_count": 8,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": [
+      {
+        "title": "Liraglutide in mild to moderate Alzheimer's disease: a phase 2b clinical trial",
+        "link": "https://www.nature.com/articles/s41591-025-04106-7"
+      },
+      {
+        "title": "Impact of Glucagon-Like Peptide-1 Receptor Agonists on the Dementia Incidence in Patients With Type 2 Diabetes Mellitus",
+        "link": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12145076/"
+      }
+    ]
+  },
+  {
+    "id": "natneurosci-2026-neuroproteasome-tau-apoe",
+    "title": "Neuroproteasomes regulate endogenous tau paired helical filament formation in an APOE genotype- and age-dependent manner",
+    "link": "https://www.nature.com/articles/s41593-026-02297-x",
+    "summary": "Researchers discovered that neurons have a specialized proteasome embedded in their plasma membrane, dubbed a 'neuroproteasome', that normally keeps the Alzheimer's-linked protein tau from misfolding. Using a novel cell-impermeant inhibitor, they showed that blocking this neuroproteasome rapidly causes normal tau to misfold into paired helical filaments, the same structures found in Alzheimer's brains. The APOE4 gene variant, the strongest genetic Alzheimer's risk factor, reduces neuroproteasome levels at the membrane by about a third, while the protective APOE2 variant nearly doubles them, offering a mechanistic bridge between genetic risk, aging, and the onset of tau pathology.",
+    "journal": "Nature Neuroscience",
+    "year": 2026,
+    "category": "neuroscience",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and the Nature Neuroscience site directly on 2026-07-25: no retraction, correction, or expression of concern found.",
+    "citation_count": 1,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": []
+  },
+  {
+    "id": "nature-2026-alphagenome-variant-effect-prediction",
+    "title": "Advancing regulatory variant effect prediction with AlphaGenome",
+    "link": "https://www.nature.com/articles/s41586-025-10014-0",
+    "summary": "DeepMind's AlphaGenome is a unified deep-learning model that reads up to one million base pairs of DNA and predicts thousands of molecular readouts, including gene expression, chromatin accessibility, histone marks, transcription-factor binding, 3D chromatin contacts, and splicing, at single-base resolution. It matches or beats specialized state-of-the-art models in 25 of 26 variant-effect benchmarks, and the authors show it can simultaneously explain multiple mechanisms behind clinically relevant mutations near the TAL1 oncogene. It is a discriminative regulatory-genomics model, distinct from generative sequence-design models such as Evo 2.",
+    "journal": "Nature",
+    "year": 2026,
+    "category": "ai_biology",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and the Nature site directly on 2026-07-25: no retraction or correction found.",
+    "citation_count": 151,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": [
+      {
+        "title": "AlphaGenome Enhances Personal Gene Expression Prediction but Retains Key Limitations",
+        "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12440111/"
+      }
+    ]
+  },
+  {
+    "id": "natmed-2026-double-neural-bypass-neuroprosthesis",
+    "title": "A neuroprosthesis for restoring hand movement and sensation in a person with complete tetraplegia",
+    "link": "https://www.nature.com/articles/s41591-026-04498-0",
+    "summary": "Researchers built a 'double neural bypass', a hybrid brain-computer interface that reads intracortical signals related to movement intent and uses AI to drive electrical stimulation of the spinal cord and forearm muscles, restoring real-time hand grasp in a man with complete C4/C5 tetraplegia. Sensors on a hand orthosis simultaneously feed pressure data back into the sensory cortex via intracortical microstimulation, restoring a sense of touch. Over three years, the participant regained the ability to self-feed and grasp objects, with lasting gains in arm strength and tactile sensitivity even when the device was switched off, suggesting the system induced genuine neuroplasticity years after his injury.",
+    "journal": "Nature Medicine",
+    "year": 2026,
+    "category": "biomedical_devices",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and the Nature Medicine site directly on 2026-07-25: no retraction, correction, or expression of concern found.",
+    "citation_count": 0,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": []
+  },
+  {
+    "id": "natbiomedeng-2026-human-aging-microphysiological-system",
+    "title": "Human microphysiological systems of aging recreate the in vivo process expediting evaluation of anti-geronic strategies",
+    "link": "https://www.nature.com/articles/s41551-026-01618-6",
+    "summary": "Bioengineers built a human iPSC-derived organ-on-chip system linking engineered white-adipose and liver tissue, then perfused it with blood serum from older versus younger human donors. Within four days, serum from older donors induced chronic inflammation, impaired glucose regulation, disrupted fat metabolism, and cellular senescence, hallmarks that normally take decades to develop in people, while young serum reversed some of these changes. The system is proposed as a fast, human-relevant platform for testing anti-aging interventions without waiting years for results.",
+    "journal": "Nature Biomedical Engineering",
+    "year": 2026,
+    "category": "tissue_engineering",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and the Nature Biomedical Engineering site directly on 2026-07-25: no retraction, correction, or expression of concern found.",
+    "citation_count": 1,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": []
+  },
+  {
+    "id": "nejm-2025-prime-editing-cgd-p47phox",
+    "title": "Prime Editing for p47phox-Deficient Chronic Granulomatous Disease",
+    "link": "https://www.nejm.org/doi/full/10.1056/NEJMoa2509807",
+    "summary": "This paper reports the first peer-reviewed clinical use of prime editing, a 'search-and-replace' gene-editing technology that corrects mutations without cutting both DNA strands, in human patients. Two patients with p47phox-deficient chronic granulomatous disease, a severe inherited immune disorder, received an infusion of their own blood stem cells corrected with the prime editor PM359. Both patients showed restored NADPH oxidase immune activity within one month, sustained through 4-6 months of follow-up, with no clinically significant treatment-related adverse events.",
+    "journal": "New England Journal of Medicine",
+    "year": 2025,
+    "category": "gene_therapy",
+    "date_surfaced": "2026-07-25",
+    "retraction_status": "Checked Retraction Watch, PubPeer, and the NEJM site directly on 2026-07-25: no retraction or correction found.",
+    "citation_count": 7,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-07-25",
+    "contradicting_papers": []
   }
 ]
