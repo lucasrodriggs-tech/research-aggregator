@@ -22,16 +22,20 @@ Read `data/papers.json`. Note every existing `id` and `title` -- none of
 today's picks may duplicate them. Read `data/SCHEMA.md` for the exact field
 reference.
 
-## 3. Research today's 10 papers
+## 3. Research candidates for today
 
 Categories (must tag every paper with exactly one, from this list):
 `cell_therapy`, `regenerative_medicine`, `clinical_trial`, `neuroscience`,
 `ai_biology`, `biomedical_devices`, `tissue_engineering`, `gene_therapy`.
 
 Rules:
-- Exactly 10 new papers today.
-- At least 1 each from `cell_therapy`, `regenerative_medicine`,
-  `clinical_trial`, `neuroscience`. The remaining 6 may be from any category.
+- Research exactly 1 paper for each of `cell_therapy`, `regenerative_medicine`,
+  `clinical_trial`, `neuroscience` (the "required" slots -- these are never
+  re-ranked, so pick your single best candidate for each).
+- Separately, research 12 additional qualifying candidate papers spanning
+  any of the 8 categories (these are the "flexible" candidates -- a later
+  step will automatically narrow these 12 down to the final 6, so it's fine
+  and expected that not all 12 will make the final cut).
 - Search year-descending: try 2026 first, then 2025, 2024, ... down to 2019,
   per category. Strongly prefer newer papers: when a newer and an older
   paper both qualify for a slot, the newer one wins by default. Only let an
@@ -78,10 +82,58 @@ Match this exact shape (see `data/SCHEMA.md` for full field docs):
       "contradicting_papers": [{"title": "...", "link": "..."}]
     }
 
-Append all 10 new entries to the array in `data/papers.json` (do not remove
-or edit any existing entries).
+You now have 4 required-slot entries and 12 flexible-slot candidate entries
+(16 total) built in this shape. Do not append anything to `data/papers.json`
+yet -- section 5 narrows the flexible candidates first.
 
-## 5. Self-check before committing
+## 5. Narrow the flexible candidates using the trained model
+
+You should now have 4 required-slot papers plus 12 flexible-slot candidates
+(16 total). Before appending anything to `data/papers.json`, narrow the 12
+flexible candidates down to 6 using the trained re-ranking model:
+
+    python3 -c "
+    import json
+    from scripts.rank_candidates import train_model, select_flexible_slots
+
+    with open('data/papers.json', encoding='utf-8') as f:
+        papers = json.load(f)
+    with open('data/marks.json', encoding='utf-8') as f:
+        marks = json.load(f)
+
+    model = train_model(papers, marks)
+    print('model trained' if model else 'cold start, using original order')
+    "
+
+If it prints "cold start, using original order", keep your own first 6
+flexible candidates in the order you proposed them and discard the other 6.
+If it prints "model trained", you'll need to actually run the ranking:
+write your 12 flexible candidates to a temporary JSON file, then run
+
+    python3 -c "
+    import json
+    from scripts.rank_candidates import train_model, select_flexible_slots
+
+    with open('data/papers.json', encoding='utf-8') as f:
+        papers = json.load(f)
+    with open('data/marks.json', encoding='utf-8') as f:
+        marks = json.load(f)
+    with open('/tmp/flexible_candidates.json', encoding='utf-8') as f:
+        candidates = json.load(f)
+
+    model = train_model(papers, marks)
+    selected = select_flexible_slots(model, candidates, slot_count=6)
+    print(json.dumps([c['id'] for c in selected]))
+    "
+
+and keep only the 6 candidates whose ids are printed, discarding the other 6.
+Combine those 6 with the 4 required-slot papers for a final total of 10.
+
+You now have exactly 10 entries: the 4 required-slot papers plus the 6
+selected flexible candidates. Append all 10 to the array in
+`data/papers.json` (do not remove or edit any existing entries).
+
+## 6. Self-check before committing
 
 The scripts only use the Python standard library, so plain `python3` works
 with no setup.
@@ -114,13 +166,13 @@ each have at least 1 paper with today's `date_surfaced`:
 If `total today` is not 10, or `missing required categories` is non-empty,
 fix `data/papers.json` and re-run both checks before continuing.
 
-## 6. Rebuild the site
+## 7. Rebuild the site
 
     python3 -m scripts.build_site
 
 This writes `docs/index.html`, served live by GitHub Pages.
 
-## 7. Commit and push
+## 8. Commit and push
 
     git add data/papers.json docs/index.html
     git commit -m "Add daily digest for <today's ISO date>"
@@ -131,7 +183,7 @@ this repo (via the workflow's `contents: write` permission) -- a plain
 `git push` should just work. If it fails, stop and report BLOCKED with the
 exact error -- do not attempt workarounds like force-pushing.
 
-## 8. Done
+## 9. Done
 
 No further action needed. Do not modify `site/artifact_template.html`,
 `scripts/*.py`, or anything outside `data/papers.json` and `docs/index.html`
