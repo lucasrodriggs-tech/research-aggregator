@@ -1,10 +1,7 @@
 {
-  "count": 7,
-  "frequency": "twice_weekly",
-  "days": [
-    "wed",
-    "sat"
-  ],
+  "count": 10,
+  "frequency": "daily",
+  "days": [],
   "custom_dates": [],
   "last_delivered_date": null
 }
