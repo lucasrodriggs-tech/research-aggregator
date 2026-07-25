@@ -130,6 +130,7 @@
   .card .actions button.active-used { border-color: var(--accent); color: var(--accent); }
   .card .actions button.active-skip { border-color: var(--critical); color: var(--critical); }
   .card .actions button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .card .actions .mark-error { font-size: 0.75rem; color: var(--critical); align-self: center; }
   .card.marked-skip { opacity: 0.55; }
   .detail { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 0.85rem; }
   .card.expanded .detail { display: block; }
@@ -176,24 +177,20 @@
     gene_therapy: 'Gene Therapy'
   };
 
-  var MARKS_KEY = 'research-digest-marks-v1';
+  var MARK_WRITE_ENDPOINT = 'https://research-aggregator-marks.lucas-research-aggregator.workers.dev/mark';
+  var MARKS_RAW_URL = 'https://raw.githubusercontent.com/lucasrodriggs-tech/research-aggregator/master/data/marks.json';
   var state = {
     tab: 'today',
     category: null,
-    marks: loadMarks(),
+    marks: {},
+    markError: null,
     expanded: {}
   };
 
   function loadMarks() {
-    try {
-      return JSON.parse(window.localStorage.getItem(MARKS_KEY)) || {};
-    } catch (e) {
-      return {};
-    }
-  }
-
-  function saveMarks() {
-    window.localStorage.setItem(MARKS_KEY, JSON.stringify(state.marks));
+    return fetch(MARKS_RAW_URL, { cache: 'no-store' })
+      .then(function (resp) { return resp.ok ? resp.json() : {}; })
+      .catch(function () { return {}; });
   }
 
   function latestDate(papers) {
@@ -242,20 +239,39 @@
   }
 
   function setMark(paperId, value) {
-    if (state.marks[paperId] === value) {
+    var previous = state.marks[paperId];
+    var next = previous === value ? null : value;
+
+    if (next === null) {
       delete state.marks[paperId];
     } else {
-      state.marks[paperId] = value;
+      state.marks[paperId] = next;
     }
-    saveMarks();
+    state.markError = null;
     render();
+
+    fetch(MARK_WRITE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ paper_id: paperId, mark: next })
+    }).then(function (resp) {
+      if (!resp.ok) throw new Error('save failed');
+    }).catch(function () {
+      if (previous === undefined) {
+        delete state.marks[paperId];
+      } else {
+        state.marks[paperId] = previous;
+      }
+      state.markError = paperId;
+      render();
+    });
   }
 
   function renderCard(paper) {
     var card = document.createElement('article');
     card.className = 'card';
     var mark = markLabel(paper.id);
-    if (mark === 'skip') card.classList.add('marked-skip');
+    if (mark === 'not_interested') card.classList.add('marked-skip');
     if (state.expanded[paper.id]) card.classList.add('expanded');
 
     var head = document.createElement('div');
@@ -317,13 +333,19 @@
     var skipBtn = document.createElement('button');
     skipBtn.type = 'button';
     skipBtn.textContent = 'Not interested';
-    if (mark === 'skip') skipBtn.classList.add('active-skip');
+    if (mark === 'not_interested') skipBtn.classList.add('active-skip');
     skipBtn.addEventListener('click', function (e) {
       e.stopPropagation();
-      setMark(paper.id, 'skip');
+      setMark(paper.id, 'not_interested');
     });
     actions.appendChild(usedBtn);
     actions.appendChild(skipBtn);
+    if (state.markError === paper.id) {
+      var errorNote = document.createElement('span');
+      errorNote.className = 'mark-error';
+      errorNote.textContent = "Couldn't save, try again";
+      actions.appendChild(errorNote);
+    }
     main.appendChild(actions);
 
     head.appendChild(main);
@@ -454,7 +476,10 @@
     render();
   });
 
-  render();
+  loadMarks().then(function (marks) {
+    state.marks = marks;
+    render();
+  });
 })();
 </script>
 </body>
