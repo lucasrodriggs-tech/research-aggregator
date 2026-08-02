@@ -824,5 +824,75 @@
     "citation_source": "Semantic Scholar",
     "citation_checked_date": "2026-07-31",
     "contradicting_papers": []
+  },
+  {
+    "id": "natmed-2026-castle-cd19-car-t-autoimmune",
+    "title": "CD19 CAR-T cells for treatment-refractory autoimmune diseases: the phase 1/2 CASTLE basket trial",
+    "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13004673/",
+    "summary": "In this phase 1/2 basket trial, researchers gave a single infusion of autologous CD19-directed CAR T cells (zorpocabtagene autoleucel) to 24 patients with severe, treatment-resistant systemic lupus erythematosus, systemic sclerosis, or idiopathic inflammatory myopathy, most of whom had failed a median of four prior immunosuppressive regimens. The therapy avoided high-grade cytokine release syndrome or neurotoxicity, and the majority of patients achieved disease remission or stabilization while living free of steroids and other immunosuppressants for more than six months. It is one of the largest and most rigorous demonstrations yet that a single 'immune reset' with CAR T cells can durably control multiple distinct autoimmune diseases rather than just cancer.",
+    "journal": "Nature Medicine",
+    "year": 2026,
+    "category": "cell_therapy",
+    "date_surfaced": "2026-08-02",
+    "retraction_status": "No retraction or correction found. Checked Retraction Watch database, PubPeer, and the Nature Medicine article page directly (s41591-025-04185-6) as of 2026-08-02; no retraction, expression of concern, or correction notices identified.",
+    "citation_count": 35,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-08-02",
+    "contradicting_papers": [
+      {
+        "title": "BCMA CAR T cells in a patient with relapsing idiopathic inflammatory myositis after initial and repeat therapy with CD19 CAR T cells",
+        "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12176613/"
+      }
+    ]
+  },
+  {
+    "id": "jhep-2025-pig-liver-xenotransplant-living-recipient",
+    "title": "Genetically engineered pig-to-human liver xenotransplantation",
+    "link": "https://www.journal-of-hepatology.eu/article/S0168-8278(25)02497-3/fulltext",
+    "summary": "Surgeons in China transplanted an auxiliary liver from a pig carrying ten genetic edits into a 71-year-old man with hepatitis B-related cirrhosis and a hepatocellular carcinoma that made standard resection or human liver transplantation impossible. The xenograft immediately produced bile and synthesized clotting factors and albumin with no hyperacute rejection, functioning for over a month before a thrombotic complication led to its removal on day 38; the patient survived 171 days total. It is the first detailed report of a genetically engineered pig liver sustaining measurable synthetic function in a living human, offering proof of concept for xenotransplantation as a bridge therapy for liver failure.",
+    "journal": "Journal of Hepatology",
+    "year": 2025,
+    "category": "regenerative_medicine",
+    "date_surfaced": "2026-08-02",
+    "retraction_status": "No retraction or correction found. Checked Retraction Watch database, PubPeer, and the Journal of Hepatology site directly as of 2026-08-02; none found. The paper prompted two published critical letters (on thrombotic-microangiopathy-vs-rejection interpretation and on remaining translational barriers) with an authors' reply -- normal post-publication scientific discourse, not a correction or retraction.",
+    "citation_count": 44,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-08-02",
+    "contradicting_papers": [
+      {
+        "title": "Thrombotic microangiopathy or rejection in first pig-to-human patient liver xenotransplantation",
+        "link": "https://doi.org/10.1016/j.jhep.2025.12.028"
+      }
+    ]
+  },
+  {
+    "id": "nejm-2026-ev304-enfortumab-pembrolizumab-bladder-cancer",
+    "title": "Enfortumab Vedotin and Pembrolizumab in Cisplatin-Eligible Bladder Cancer",
+    "link": "https://www.nejm.org/doi/full/10.1056/NEJMoa2601486",
+    "summary": "In this international phase 3 trial (KEYNOTE-B15/EV-304), 808 patients with cisplatin-eligible muscle-invasive bladder cancer were randomized to perioperative enfortumab vedotin plus pembrolizumab or standard neoadjuvant cisplatin-gemcitabine chemotherapy before and after radical cystectomy. The antibody-drug conjugate/immunotherapy combination nearly doubled the rate of pathological complete response (55.8% vs 32.5%) and significantly improved event-free and overall survival, at the cost of somewhat higher grade 3+ adverse events. The results, the first regimen in nearly 25 years to surpass the long-standing chemotherapy standard, led the FDA to expand approval of enfortumab vedotin plus pembrolizumab to all cisplatin-eligible cystectomy candidates in July 2026.",
+    "journal": "New England Journal of Medicine",
+    "year": 2026,
+    "category": "clinical_trial",
+    "date_surfaced": "2026-08-02",
+    "retraction_status": "No retraction or correction found. Checked the NEJM article page, Retraction Watch database, and PubPeer as of 2026-08-02; no notices, expressions of concern, or corrections identified for this article (published July 23, 2026).",
+    "citation_count": 1,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-08-02",
+    "contradicting_papers": []
+  },
+  {
+    "id": "natneurosci-2026-ofc-intrinsic-value-information",
+    "title": "Representations of the intrinsic value of information in mouse orbitofrontal cortex",
+    "link": "https://www.nature.com/articles/s41593-026-02377-y",
+    "summary": "Using an odor-cued information-seeking task and single-cell calcium imaging, researchers show that mice will sacrifice water reward just to learn information that has no effect on the outcome, revealing that curiosity itself has measurable value to the brain. Neurons in the orbitofrontal cortex encode this 'value of information' through a population distinct from the neurons that track ordinary reward value, with a computational latent-variable model confirming the two signals follow separate pathways. The work gives one of the clearest neural mechanisms yet for curiosity-driven, non-instrumental information seeking, a behavior long observed but poorly understood at the circuit level.",
+    "journal": "Nature Neuroscience",
+    "year": 2026,
+    "category": "neuroscience",
+    "date_surfaced": "2026-08-02",
+    "retraction_status": "No retraction or correction found. Checked Retraction Watch database, PubPeer, and the Nature Neuroscience article page directly; no corrections, expressions of concern, or retractions on record for this paper or its long-running bioRxiv preprint (posted 2023, revised through 2024).",
+    "citation_count": 0,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-08-02",
+    "contradicting_papers": []
   }
 ]
