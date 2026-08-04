@@ -894,5 +894,70 @@
     "citation_source": "Semantic Scholar",
     "citation_checked_date": "2026-08-02",
     "contradicting_papers": []
+  },
+  {
+    "id": "science-2025-in-vivo-car-t-generation",
+    "title": "In vivo CAR T cell generation to treat cancer and autoimmune disease",
+    "link": "https://www.science.org/doi/10.1126/science.ads8473",
+    "summary": "Researchers at Capstan Therapeutics and collaborators engineered targeted lipid nanoparticles (tLNPs) that deliver CAR-encoding mRNA directly to T cells inside the body, reprogramming them into CAR T cells without the need for leukapheresis, ex vivo manufacturing, or lymphodepleting chemotherapy. The tLNPs controlled tumors in humanized mice and produced durable B-cell depletion with naive B-cell reconstitution in cynomolgus monkeys, suggesting a path to reset autoimmune-driven immune responses. This off-the-shelf, in-body approach could dramatically simplify and broaden access to CAR T therapy for both cancer and autoimmune disease, and the underlying platform was significant enough to drive AbbVie's $2.1 billion acquisition of Capstan Therapeutics.",
+    "journal": "Science",
+    "year": 2025,
+    "category": "cell_therapy",
+    "date_surfaced": "2026-08-04",
+    "retraction_status": "No retraction or correction found. Checked Retraction Watch database (no results), PubPeer (no entries found), and the Science journal site (no correction notice) as of 2026-08-04.",
+    "citation_count": 235,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-08-04",
+    "contradicting_papers": []
+  },
+  {
+    "id": "cellstemcell-2025-lysosomal-reversal-hsc-aging",
+    "title": "Reversing lysosomal dysfunction restores youthful state in aged hematopoietic stem cells",
+    "link": "https://www.cell.com/cell-stem-cell/abstract/S1934-5909(25)00405-9",
+    "summary": "Researchers at the Icahn School of Medicine at Mount Sinai found that aged blood-forming (hematopoietic) stem cells in mice accumulate hyperactive, damaged lysosomes that drive metabolic, epigenetic, and inflammatory dysfunction. Briefly treating old stem cells with a vacuolar ATPase inhibitor to calm this lysosomal overactivity restored their youthful molecular state and boosted their blood-regenerating capacity more than eightfold after transplantation. The work challenges the assumption that stem-cell aging is irreversible and points to lysosomal function as a druggable target for rejuvenating the blood and immune system in older age.",
+    "journal": "Cell Stem Cell",
+    "year": 2025,
+    "category": "regenerative_medicine",
+    "date_surfaced": "2026-08-04",
+    "retraction_status": "No retraction or correction found. Checked Retraction Watch database, PubPeer, and the Cell Press/Cell Stem Cell journal site (as of 2026-08-04) — no records of any retraction, correction, or post-publication concern for this article.",
+    "citation_count": 10,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-08-04",
+    "contradicting_papers": []
+  },
+  {
+    "id": "lancet-2026-ctt-statin-label-adverse-effects",
+    "title": "Assessment of adverse effects attributed to statin therapy in product labels: a meta-analysis of double-blind randomised controlled trials",
+    "link": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(25)01578-8/fulltext",
+    "summary": "An international team, the Cholesterol Treatment Trialists' (CTT) Collaboration, pooled individual-patient data from 19 double-blind, placebo-controlled randomized trials of statins (nearly 124,000 participants) to test whether the dozens of side effects listed on statin drug labels are actually caused by the drugs. Only 4 of 66 labeled adverse effects — abnormal liver enzymes, other liver test abnormalities, urinary composition changes, and edema — occurred significantly more often with statins than placebo; widely feared effects such as muscle pain, memory loss, depression, fatigue, and erectile dysfunction showed no excess risk when assessed under blinded trial conditions. The findings suggest that statin product labeling, largely derived from unblinded observational reports, substantially overstates the drugs' harms and could reshape prescribing guidance and patient counseling for one of the most widely used drug classes in the world.",
+    "journal": "The Lancet",
+    "year": 2026,
+    "category": "clinical_trial",
+    "date_surfaced": "2026-08-04",
+    "retraction_status": "No retraction or correction found. Checked Retraction Watch (lancet category listing), PubPeer, and The Lancet's own site/Department of Error notices as of 2026-08-04 — none reference this article. A standard post-publication scientific correspondence was published (a critical letter and the authors' reply, 'Challenges in assessing statin-associated adverse events'), which is normal scientific debate, not a correction or retraction.",
+    "citation_count": 17,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-08-04",
+    "contradicting_papers": [
+      {
+        "title": "Challenges in assessing statin-associated adverse events – Authors' reply (Lancet correspondence responding to a critical letter about the CTT meta-analysis's methodology and data-access transparency)",
+        "link": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)01147-5/fulltext"
+      }
+    ]
+  },
+  {
+    "id": "natneurosci-2026-brain-controlled-selective-hearing",
+    "title": "Real-time brain-controlled selective hearing enhances speech perception in multi-talker environments",
+    "link": "https://www.nature.com/articles/s41593-026-02281-5",
+    "summary": "Researchers at Columbia, Cornell and NYU built a closed-loop brain-computer interface that reads intracranial EEG signals from neurosurgical patients to figure out, in real time, which of several simultaneous talkers a listener is attending to, then automatically boosts that voice's volume. In multiple experiments the system decoded attention with 72-90% accuracy, improved speech intelligibility, reduced listening effort, tracked spontaneous shifts of attention, and was consistently preferred by participants over unamplified listening. It is presented as a first proof-of-concept for a future generation of 'neuro-steered' hearing aids that solve the classic cocktail-party problem by using the brain itself as the control signal.",
+    "journal": "Nature Neuroscience",
+    "year": 2026,
+    "category": "neuroscience",
+    "date_surfaced": "2026-08-04",
+    "retraction_status": "No retraction or correction found. Checked the Nature Neuroscience article page, PubMed record (PMID 42115433), and web searches including Retraction Watch — no notices of concern, corrections, or retractions identified as of 2026-08-04. PubPeer could not be queried directly (403 error) but no PubPeer discussion surfaced in general web searches either.",
+    "citation_count": 2,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-08-04",
+    "contradicting_papers": []
   }
 ]
