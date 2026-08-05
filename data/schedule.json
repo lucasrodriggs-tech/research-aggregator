@@ -1,7 +1,9 @@
 {
   "count": 4,
-  "frequency": "every_other_day",
-  "days": [],
+  "frequency": "biweekly",
+  "days": [
+    "sat"
+  ],
   "custom_dates": [],
   "last_delivered_date": "2026-08-04"
 }
