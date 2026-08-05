@@ -1,6 +1,6 @@
 {
   "count": 4,
-  "frequency": "biweekly",
+  "frequency": "custom",
   "days": [
     "sat"
   ],
