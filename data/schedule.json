@@ -4,6 +4,8 @@
   "days": [
     "sat"
   ],
-  "custom_dates": [],
+  "custom_dates": [
+    "2026-09-11"
+  ],
   "last_delivered_date": "2026-08-04"
 }
