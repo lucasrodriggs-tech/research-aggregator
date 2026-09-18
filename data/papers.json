@@ -1098,5 +1098,65 @@
         "link": "https://www.nature.com/articles/nature25975"
       }
     ]
+  },
+  {
+    "id": "natmed-2026-heal-chf-ipsc-cardiomyocytes-heart-failure",
+    "title": "Intramyocardial injection of allogeneic human induced pluripotent stem cell-derived cardiomyocytes in advanced ischemic heart failure: an early-stage randomized trial",
+    "link": "https://www.nature.com/articles/s41591-026-04605-1",
+    "summary": "In the HEAL-CHF trial, 20 patients with advanced ischemic heart failure undergoing bypass surgery were randomized to also receive intramyocardial injections of allogeneic iPSC-derived heart muscle cells or surgery alone. The primary safety endpoints -- sustained ventricular tachycardia and tumor formation -- did not occur in either group through 12 months, though all 10 cell-therapy patients developed early, self-limited accelerated idioventricular rhythm in the first four weeks. Cell-treated patients also showed better 6-minute walk distance, stroke volume, myocardial perfusion, and contractility than surgery alone, moving iPSC-based cardiac regeneration from single-arm safety studies toward controlled proof-of-concept efficacy.",
+    "journal": "Nature Medicine",
+    "year": 2026,
+    "category": "cell_therapy",
+    "date_surfaced": "2026-09-18",
+    "retraction_status": "No retraction or correction found. Checked Retraction Watch database, PubPeer, and the Nature Medicine article page (no correction/editor's note listed) as of 2026-09-18.",
+    "citation_count": 0,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-09-18",
+    "contradicting_papers": []
+  },
+  {
+    "id": "nataging-2026-contractile-myografts-anti-aging",
+    "title": "Contractile myografts confer systemic anti-aging benefits",
+    "link": "https://www.nature.com/articles/s43587-026-01190-3",
+    "summary": "Researchers grew mice's own muscle stem cells into mature, vascularized 'myografts' that self-contract continuously, then implanted them subcutaneously to mimic the physiological effects of exercise without the exercise. In aged, obese, and hormone-deficient mice, the grafts increased whole-body lean mass, grip strength, and running performance, and improved bone density, metabolism, and liver and brain outcomes, likely via myokines and other factors secreted into circulation. The grafts could also be engineered to secrete therapeutic hormones like parathyroid hormone, suggesting a platform for treating multiple age-related conditions in people who cannot exercise.",
+    "journal": "Nature Aging",
+    "year": 2026,
+    "category": "regenerative_medicine",
+    "date_surfaced": "2026-09-18",
+    "retraction_status": "No retraction, correction, or PubPeer/Retraction Watch flags found as of 2026-09-18; paper published August 2026 and listed as current per Crossref Crossmark.",
+    "citation_count": 2,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-09-18",
+    "contradicting_papers": []
+  },
+  {
+    "id": "lancet-2026-transcend-t2d1-retatrutide-type2-diabetes",
+    "title": "Efficacy and safety of retatrutide, a GIP, GLP-1, and glucagon receptor agonist, in people with type 2 diabetes and inadequate glycaemic control with diet and exercise (TRANSCEND-T2D-1): a double-blind, randomised, phase 3 trial",
+    "link": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)00967-0/abstract",
+    "summary": "In the first phase 3 trial of retatrutide, Eli Lilly's investigational triple agonist targeting the GIP, GLP-1, and glucagon receptors, 537 adults with inadequately controlled type 2 diabetes were randomized to placebo or one of three retatrutide doses for 40 weeks. Retatrutide produced dose-dependent HbA1c reductions of up to 2.0 percentage points versus 0.8 with placebo, plus weight loss up to 16.8% with no plateau at 40 weeks, alongside improved lipids and blood pressure, at the cost of more gastrointestinal adverse events and discontinuations than placebo. The results position retatrutide as a potential successor to tirzepatide in the fast-moving incretin-drug field, though it remains unapproved and has drawn concern over growing off-label black-market use.",
+    "journal": "The Lancet",
+    "year": 2026,
+    "category": "clinical_trial",
+    "date_surfaced": "2026-09-18",
+    "retraction_status": "No retraction or correction found. Checked Retraction Watch, PubPeer-related searches, and The Lancet's own article page as of 2026-09-18 -- no notices present.",
+    "citation_count": 11,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-09-18",
+    "contradicting_papers": []
+  },
+  {
+    "id": "natneurosci-2026-mcu-dopamine-addiction",
+    "title": "Mitochondrial calcium influx-driven bioenergetics selectively enable drug addiction",
+    "link": "https://www.nature.com/articles/s41593-026-02421-x",
+    "summary": "Researchers found that opioids and methamphetamine, but not natural rewards like food, trigger a distinct mitochondrial mechanism in the dopamine neurons of the brain's reward circuit. Using fiber photometry, optogenetics, and genetic knockouts in mice, they showed these drugs drive calcium into neuronal mitochondria via the mitochondrial calcium uniporter (MCU), fueling a burst of ATP production that sustains pathologically high dopamine release during high-intensity neural activity. Genetically deleting or pharmacologically blocking MCU in dopamine neurons selectively blunted drug-induced dopamine surges and reduced addiction-like behavior while leaving normal reward responses intact, pointing to MCU as a potential selective target for addiction treatment.",
+    "journal": "Nature Neuroscience",
+    "year": 2026,
+    "category": "neuroscience",
+    "date_surfaced": "2026-09-18",
+    "retraction_status": "None found. Checked Retraction Watch database, PubPeer, and the Nature Neuroscience article page (no correction, expression of concern, or retraction notices present) as of 2026-09-18.",
+    "citation_count": 0,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-09-18",
+    "contradicting_papers": []
   }
 ]
