@@ -1348,5 +1348,79 @@
     "citation_source": "Semantic Scholar",
     "citation_checked_date": "2026-09-22",
     "contradicting_papers": []
+  },
+  {
+    "id": "lancet-2025-ft596-ipsc-car-nk-lymphoma",
+    "title": "Induced pluripotent stem-cell-derived CD19-directed chimeric antigen receptor natural killer cells in B-cell lymphoma: a phase 1, first-in-human trial",
+    "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11827677",
+    "summary": "In the first completed clinical trial of an induced-pluripotent-stem-cell-derived cell therapy for cancer, researchers manufactured FT596 -- an off-the-shelf CAR-NK cell product carrying a CD19-targeting CAR, a high-affinity CD16 Fc receptor, and an IL-15/IL-15Rα fusion -- from a single engineered iPSC line rather than from each patient’s own cells. Across 86 patients with relapsed or refractory B-cell lymphoma treated at nine US sites, FT596 was well tolerated (no maximum tolerated dose reached, no neurotoxicity, low-grade cytokine release syndrome only) and produced deep, durable responses, including in patients who had already failed prior CAR-T therapy. The trial establishes that a single stem-cell-derived, genetically engineered cell bank can supply a scalable, immediately available cancer immunotherapy, addressing the manufacturing bottlenecks and heterogeneity that limit autologous CAR-T products.",
+    "journal": "The Lancet",
+    "year": 2025,
+    "category": "cell_therapy",
+    "date_surfaced": "2026-09-23",
+    "retraction_status": "Checked Retraction Watch database, PubPeer, and the journal (thelancet.com) on 2026-09-23 -- no retraction or correction notices found for this paper.",
+    "citation_count": 113,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-09-23",
+    "contradicting_papers": []
+  },
+  {
+    "id": "nature-2026-otof-gene-therapy-multicentre-followup",
+    "title": "Multicentre gene therapy for OTOF-related deafness followed up to 2.5 years",
+    "link": "https://www.nature.com/articles/s41586-026-10393-y",
+    "summary": "In the largest and longest-followed trial of a hearing-restoration gene therapy to date, researchers gave a single cochlear injection of AAV1-hOTOF -- an adeno-associated virus carrying a working copy of the otoferlin gene -- to 42 children and adults (ages 0.8-32) born deaf due to OTOF mutations across eight centers and three dose cohorts. Ninety percent of participants recovered functional hearing with no dose-limiting toxicities, and the improvement remained stable for up to 2.5 years of follow-up, addressing the key open question of whether gene-therapy-restored hearing would actually last. The trial establishes durable genetic restoration of a lost human sense, going beyond earlier short-term proof-of-concept studies.",
+    "journal": "Nature",
+    "year": 2026,
+    "category": "regenerative_medicine",
+    "date_surfaced": "2026-09-23",
+    "retraction_status": "Checked Retraction Watch database, PubPeer, and the Nature journal site on 2026-09-23 -- no retraction, correction, or expression-of-concern notices found for this paper or its authors.",
+    "citation_count": 19,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-09-23",
+    "contradicting_papers": [
+      {
+        "title": "Electrophysiological and histological study reveals hidden subclinical haploinsufficiency of Otof",
+        "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12596599/"
+      }
+    ]
+  },
+  {
+    "id": "lancet-2025-zoliflodacin-gonorrhoea-phase3",
+    "title": "Zoliflodacin versus ceftriaxone plus azithromycin for treatment of uncomplicated urogenital gonorrhoea: an international, randomised, controlled, open-label, phase 3, non-inferiority clinical trial",
+    "link": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(25)01953-1/fulltext",
+    "summary": "In the largest-ever clinical trial for a new gonorrhea treatment, a single 3g oral dose of zoliflodacin -- the first new class of oral antibiotic for gonorrhea in decades -- was non-inferior to the current standard injectable/oral combination of ceftriaxone plus azithromycin in over 900 participants across five countries. Because zoliflodacin works by a novel mechanism (a spiropyrimidinetrione topoisomerase inhibitor), it sidesteps existing resistance mechanisms and offers a much-needed oral option as gonorrhea grows increasingly resistant to first-line antibiotics worldwide. The trial led directly to FDA approval (as Nuzolvence) in December 2025, though published commentaries noted it was numerically less effective than standard therapy at the urogenital site and raised concerns about pharyngeal infection cure rates.",
+    "journal": "The Lancet",
+    "year": 2025,
+    "category": "clinical_trial",
+    "date_surfaced": "2026-09-23",
+    "retraction_status": "Checked Retraction Watch database, PubPeer, and The Lancet's own correction notices on 2026-09-23 -- no retraction or correction found for the primary trial article. A 'Department of Error' erratum published 2026-01-10 pertains only to a separate accompanying editorial Comment, not to the trial paper itself.",
+    "citation_count": 29,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-09-23",
+    "contradicting_papers": [
+      {
+        "title": "Zoliflodacin: non-inferior, but not equivalent?",
+        "link": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)00500-3/fulltext"
+      },
+      {
+        "title": "The pharyngeal sanctuary: a challenge for zoliflodacin",
+        "link": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)00501-5/fulltext"
+      }
+    ]
+  },
+  {
+    "id": "natneurosci-2026-cerebellar-dopamine-reward-encoding",
+    "title": "Predictive and instructive cerebellar encoding of dopamine reward drives motivated behavior",
+    "link": "https://www.nature.com/articles/s41593-026-02449-z",
+    "summary": "Using two-photon imaging in mice trained to work for optogenetically-delivered dopamine rewards, researchers found that the cerebellum -- long viewed as a purely motor structure -- actively encodes reward information. Cerebellar granule cells generate slow ramping activity that stretches to match 1- to 2-second reward delays (a predictive code), while climbing fibers fire sharply just after reward delivery (an instructive code); disrupting granule-cell activity during the delay period impaired reward-seeking learning, establishing a causal role. The findings challenge the classical view that reward processing is confined to midbrain dopamine and basal ganglia circuits, positioning the cerebellum as a genuine partner in motivated behavior.",
+    "journal": "Nature Neuroscience",
+    "year": 2026,
+    "category": "neuroscience",
+    "date_surfaced": "2026-09-23",
+    "retraction_status": "Checked Retraction Watch database, PubPeer, and the Nature Neuroscience journal site on 2026-09-23 -- no retraction or correction notices found for this paper or its authors.",
+    "citation_count": 0,
+    "citation_source": "Europe PMC",
+    "citation_checked_date": "2026-09-23",
+    "contradicting_papers": []
   }
 ]
