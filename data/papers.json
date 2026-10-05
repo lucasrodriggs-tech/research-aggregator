@@ -1842,5 +1842,70 @@
     "citation_source": "Semantic Scholar",
     "citation_checked_date": "2026-10-04",
     "contradicting_papers": []
+  },
+  {
+    "id": "lancet-2026-liso-cel-marginal-zone-lymphoma-transcend-fl",
+    "title": "Lisocabtagene maraleucel in patients with relapsed or refractory marginal zone lymphoma (TRANSCEND FL): primary analysis results from the global, multicohort, single-arm, phase 2 study",
+    "link": "https://pubmed.ncbi.nlm.nih.gov/41692020/",
+    "summary": "Marginal zone lymphoma is a slow-growing blood cancer that is hard to cure once it returns after several treatments. In this phase 2 study, 67 patients received a one-time infusion of their own T cells engineered to target CD19 on cancer cells. About 95% responded, 62% had a complete response, and roughly 86% were alive without progression at two years, with no new safety signals.",
+    "journal": "The Lancet",
+    "year": 2026,
+    "category": "cell_therapy",
+    "date_surfaced": "2026-10-05",
+    "retraction_status": "Checked Retraction Watch, PubPeer and the Lancet/PubMed record on 2026-10-05: no retraction, expression of concern, or correction found.",
+    "citation_count": 9,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-10-05",
+    "contradicting_papers": []
+  },
+  {
+    "id": "nature-2025-engineered-heart-muscle-allografts-primates-humans",
+    "title": "Engineered heart muscle allografts for heart repair in primates and humans",
+    "link": "https://www.nature.com/articles/s41586-024-08463-0",
+    "summary": "Researchers grew patches of heart muscle from induced pluripotent stem cells and stitched them onto the surface of failing hearts. In rhesus macaques the patches survived, rebuilt muscle and improved the heart's pumping, and the approach was then tried in a first patient with advanced heart failure. It is an early step toward replacing lost heart muscle rather than only slowing its decline.",
+    "journal": "Nature",
+    "year": 2025,
+    "category": "regenerative_medicine",
+    "date_surfaced": "2026-10-05",
+    "retraction_status": "Checked Retraction Watch, PubPeer and the Nature article page on 2026-10-05: no retraction, correction, or expression of concern found.",
+    "citation_count": 152,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-10-05",
+    "contradicting_papers": []
+  },
+  {
+    "id": "lancet-2026-deramiocel-hope3-duchenne",
+    "title": "Deramiocel heart-derived cellular therapy in advanced Duchenne muscular dystrophy (HOPE-3): a phase 3, randomised, double-blind, placebo-controlled trial",
+    "link": "https://www.eurekalert.org/news-releases/1137937",
+    "summary": "In 106 teenagers and young men with advanced Duchenne muscular dystrophy, infusions of donor heart-derived cells every three months slowed the decline in arm function by about 54% versus placebo over a year. Allergic-type reactions were more common with the therapy (42% vs 15%). An FDA advisory panel nonetheless voted 9-3 against approval, citing changes to the statistical analysis plan, so the result is contested. Link is the Lancet's press release; the paper is in The Lancet, 29 July 2026.",
+    "journal": "The Lancet",
+    "year": 2026,
+    "category": "clinical_trial",
+    "date_surfaced": "2026-10-05",
+    "retraction_status": "Checked Retraction Watch, PubPeer and press coverage on 2026-10-05: no retraction or correction found. Not a retraction issue, but the FDA disputed the trial's statistical analysis plan changes.",
+    "citation_count": 0,
+    "citation_source": "Semantic Scholar (not yet indexed; published <6 months ago)",
+    "citation_checked_date": "2026-10-05",
+    "contradicting_papers": [
+      {
+        "title": "FDA Advisory Committee Votes Against Deramiocel for DMD Cardiomyopathy (news report of FDA panel 9-3 vote and briefing-document concerns, not a paper)",
+        "link": "https://www.neurologylive.com/view/fda-advisory-committee-votes-against-deramiocel-dmd-cardiomyopathy"
+      }
+    ]
+  },
+  {
+    "id": "natneurosci-2026-two-neural-ectoderm-progenitors-developing-brain",
+    "title": "Two parallel neural ectoderm progenitors contribute to the developing brain",
+    "link": "https://www.nature.com/articles/s41593-026-02433-7",
+    "summary": "This study finds that the developing brain does not come from a single starting cell population. One progenitor type builds the forebrain and midbrain, while a separate one builds the hindbrain. Using this, the authors grew human hindbrain neurons in the lab, which could help study ALS, spinal muscular atrophy and other brainstem diseases.",
+    "journal": "Nature Neuroscience",
+    "year": 2026,
+    "category": "neuroscience",
+    "date_surfaced": "2026-10-05",
+    "retraction_status": "Checked Retraction Watch, PubPeer and the Nature Neuroscience article page on 2026-10-05: none found (paper published September 2026).",
+    "citation_count": 1,
+    "citation_source": "Semantic Scholar",
+    "citation_checked_date": "2026-10-05",
+    "contradicting_papers": []
   }
 ]
