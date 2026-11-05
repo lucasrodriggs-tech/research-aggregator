@@ -3527,5 +3527,70 @@
     "citation_source": "Crossref",
     "citation_checked_date": "2026-11-04",
     "contradicting_papers": []
+  },
+  {
+    "id": "nejm-2026-ten-year-outcomes-car-t-b-cell-lymphoma",
+    "title": "Ten-Year Outcomes after CAR T-Cell Therapy for B-Cell Lymphomas",
+    "link": "https://doi.org/10.1056/nejmoa2518035",
+    "summary": "This is the first decade-long look at patients treated in the original Penn trial of tisagenlecleucel, a CAR T therapy, for relapsed lymphoma. Among 38 patients followed a median of 10.1 years, no lymphoma relapses appeared after 5.4 years, and 10-year lymphoma-free survival was 32% in large B-cell and 47% in follicular lymphoma. Late risks were real, though: 21% developed a second primary cancer.",
+    "journal": "New England Journal of Medicine",
+    "year": 2026,
+    "category": "cell_therapy",
+    "retraction_status": "Checked Crossref update/relation metadata on 2026-11-05: no retraction, correction or expression of concern found for DOI 10.1056/nejmoa2518035. Retraction Watch, PubPeer and the journal site were not directly searchable from this run; nothing surfaced in web searches. Published 2026-06-24/25.",
+    "citation_count": 6,
+    "contradicting_papers": [],
+    "date_surfaced": "2026-11-05",
+    "citation_source": "Crossref",
+    "citation_checked_date": "2026-11-05"
+  },
+  {
+    "id": "nature-2026-subspace-communication-hippocampal-retrosplenial-axis",
+    "title": "Subspace communication in the hippocampal–retrosplenial axis",
+    "link": "https://doi.org/10.1038/s41586-026-10481-z",
+    "summary": "Memories require brain areas to pass information to one another without scrambling it. Recording from mouse hippocampus and retrosplenial cortex, the authors found that about a quarter of hippocampal cells act as shared hubs that route signals into and out of the circuit through dedicated 'subspaces'. This offers a concrete mechanism for how memory circuits communicate.",
+    "journal": "Nature",
+    "year": 2026,
+    "category": "neuroscience",
+    "retraction_status": "Checked Crossref update/relation metadata on 2026-11-05: no retraction, correction or expression of concern found for DOI 10.1038/s41586-026-10481-z. Retraction Watch, PubPeer and the journal site were not directly searchable from this run; nothing surfaced in web searches. Published 2026-05-13.",
+    "citation_count": 9,
+    "contradicting_papers": [],
+    "date_surfaced": "2026-11-05",
+    "citation_source": "Crossref",
+    "citation_checked_date": "2026-11-05"
+  },
+  {
+    "id": "nejm-2026-asundexian-secondary-stroke-prevention-oceanic-stroke",
+    "title": "Asundexian for Secondary Stroke Prevention",
+    "link": "https://doi.org/10.1056/nejmoa2513880",
+    "summary": "Asundexian blocks factor XIa, a clotting protein thought to matter for clots but less for normal bleeding control. In this large phase 3 trial in people who had a non-cardioembolic ischemic stroke, adding it to standard antiplatelet therapy cut recurrent ischemic stroke by about 26% without a significant rise in major bleeding, as reported in the press and presentations.",
+    "journal": "New England Journal of Medicine",
+    "year": 2026,
+    "category": "clinical_trial",
+    "retraction_status": "Checked Crossref update/relation metadata on 2026-11-05: no retraction, correction or expression of concern found for DOI 10.1056/nejmoa2513880. Retraction Watch, PubPeer and the journal site were not directly searchable from this run; nothing surfaced in web searches. Published 2026-04-16.",
+    "citation_count": 61,
+    "contradicting_papers": [
+      {
+        "title": "Asundexian versus Apixaban in Patients with Atrial Fibrillation",
+        "link": "https://doi.org/10.1056/NEJMoa2407105"
+      }
+    ],
+    "date_surfaced": "2026-11-05",
+    "citation_source": "Crossref",
+    "citation_checked_date": "2026-11-05"
+  },
+  {
+    "id": "natbiotech-2026-autologous-engineered-esophagus-large-animal",
+    "title": "Functional integration of an autologous engineered esophagus in a large-animal model",
+    "link": "https://doi.org/10.1038/s41587-026-03043-1",
+    "summary": "Babies born with a missing section of food pipe have few good options. Researchers stripped the cells from a donor pig oesophagus and reseeded the scaffold with the recipient pig's own muscle cells. After implantation the grafts developed muscle, nerves and blood vessels and could move food, without immunosuppressive drugs. Outside experts note it is early: pig grafts were a fixed length and growth in children is untested.",
+    "journal": "Nature Biotechnology",
+    "year": 2026,
+    "category": "regenerative_medicine",
+    "retraction_status": "Checked Crossref update/relation metadata on 2026-11-05: no retraction, correction or expression of concern found for DOI 10.1038/s41587-026-03043-1. Retraction Watch, PubPeer and the journal site were not directly searchable from this run; nothing surfaced in web searches. Published 2026-03-20. (Crossref update query for this DOI errored once; no notices seen in news coverage.)",
+    "citation_count": 10,
+    "contradicting_papers": [],
+    "date_surfaced": "2026-11-05",
+    "citation_source": "Crossref",
+    "citation_checked_date": "2026-11-05"
   }
 ]
